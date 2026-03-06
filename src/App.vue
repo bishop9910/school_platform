@@ -3,13 +3,6 @@ import { ref, onMounted } from 'vue'
 
 const isDark = ref(false)
 
-// 切换主题
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-}
-
-// 初始化
 onMounted(() => {
   const saved = localStorage.getItem('theme') as 'light' | 'dark' | null
   const theme = saved || 'light'
@@ -20,13 +13,11 @@ onMounted(() => {
 
 <template>
   <nav :data-theme="isDark ? 'dark' : 'light'">
-    <!-- 链接容器（靠左） -->
     <div class="nav-links">
       <router-link to="/">主页</router-link>
       <router-link to="/test">test</router-link>
     </div>
     
-    <!-- 切换按钮（靠右） -->
     <div class="theme-toggle-wrapper">
       <label class="theme-toggle" :title="isDark ? '切换到亮色模式' : '切换到深色模式'">
         <input 
@@ -54,10 +45,9 @@ nav {
   --nav-hover: rgba(255, 255, 255, 0.2);
   --nav-active: rgba(255, 255, 255, 0.35);
   --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  --nav-radius: 0; /* 一长条：直角或微调圆角 */
+  --nav-radius: 0;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
-  /* 滑动按钮配色 - 亮色 */
   --toggle-bg: rgba(255, 255, 255, 0.25);
   --toggle-slider-bg: #ffffff;
   --toggle-icon-opacity: 0.5;
@@ -92,7 +82,6 @@ nav[data-theme="dark"] {
   --nav-active: rgba(255, 255, 255, 0.2);
   --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   
-  /* 滑动按钮配色 - 深色 */
   --toggle-bg: rgba(255, 255, 255, 0.15);
   --toggle-slider-bg: #2d3748;
   --toggle-icon-opacity: 0.4;
@@ -130,7 +119,7 @@ nav:hover::before {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-right: auto; /* ✅ 关键：把按钮推到右侧 */
+  margin-right: auto;
 }
 
 /* 链接样式 */
@@ -185,7 +174,6 @@ nav :deep(a:active) {
 .theme-toggle-wrapper {
   display: flex;
   align-items: center;
-  /* margin-left: auto;  ← 已移到 .nav-links 实现 */
 }
 
 .theme-toggle {
@@ -234,13 +222,12 @@ nav :deep(a:active) {
   font-size: 14px;
   transition: var(--transition);
   z-index: 1;
-  pointer-events: none; /* 防止图标阻挡点击 */
+  pointer-events: none;
 }
 
 .toggle-icon.sun { left: 6px; opacity: var(--toggle-icon-active); }
 .toggle-icon.moon { right: 6px; opacity: var(--toggle-icon-opacity); }
 
-/* 选中状态 */
 .theme-checkbox:checked + .toggle-slider::before {
   transform: translateX(28px);
   background: #ffd700;
@@ -301,7 +288,6 @@ nav :deep(a:active) {
   .toggle-icon { font-size: 11px; }
 }
 
-/* 减少动画偏好 */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition: none !important;
