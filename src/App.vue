@@ -16,6 +16,14 @@ onMounted(() => {
     <div class="nav-links">
       <router-link to="/">主页</router-link>
       <router-link to="/test">test</router-link>
+      <router-link to="/test">test</router-link>
+      <router-link to="/test">test</router-link>
+      <router-link to="/test">test</router-link>
+
+    </div>
+
+    <div class="nav-title">
+      <h2>校园技能与资源流转平台</h2>
     </div>
     
     <div class="theme-toggle-wrapper">
@@ -120,6 +128,14 @@ nav:hover::before {
   align-items: center;
   gap: 4px;
   margin-right: auto;
+}
+
+.nav-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: auto;
+  color: #ffffff
 }
 
 /* 链接样式 */
