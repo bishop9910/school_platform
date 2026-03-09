@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const isDark = ref(false)
 
@@ -9,16 +9,16 @@ onMounted(() => {
   isDark.value = theme === 'dark'
   localStorage.setItem('theme', theme)
 })
+
+watch(isDark, (newVal) => {
+  localStorage.setItem('theme', newVal ? "dark" : "light")
+})
 </script>
 
 <template>
   <nav :data-theme="isDark ? 'dark' : 'light'">
     <div class="nav-links">
       <router-link to="/">主页</router-link>
-      <router-link to="/test">test</router-link>
-      <router-link to="/test">test</router-link>
-      <router-link to="/test">test</router-link>
-      <router-link to="/test">test</router-link>
 
     </div>
 
