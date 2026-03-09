@@ -25,7 +25,9 @@ const showGender = computed(()=>{
   <button @click="handleGetInfo">点我</button>
 
   <div v-if=" userInfo.id !== '' ">
-    用户名：{{ userInfo.username }} 昵称：{{ userInfo.nickName }} 性别: {{ showGender }}
+    <span>用户名：{{ userInfo.username }} 昵称：{{ userInfo.nickName }} 性别: {{ showGender }} 邮箱：{{ userInfo.email }}</span>
+    <br>
+    头像：<img :src="userInfo.avatar" :alt="userInfo.nickName" width="100" height="100">
   </div>
 </template>
 

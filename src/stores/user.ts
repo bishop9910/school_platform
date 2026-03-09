@@ -42,7 +42,7 @@ export const useLogin = defineStore('login', () => {
 
         let avatar = res.data.avatar || ""
         if (!isHttp(avatar)) {
-          avatar = (isEmpty(avatar)) ? defAva : import.meta.env.VUE_APP_BASE_API + avatar
+          avatar = (isEmpty(avatar)) ? defAva : import.meta.env.BASE_URL + avatar
         }
 
         userInfo.id = res.data.id!
