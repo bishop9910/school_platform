@@ -12,6 +12,11 @@ const router = createRouter({
       path: '/test',
       name: '测试',
       component: ()=>import('@/components/Test.vue')
+    },
+    {
+      path: '/login',
+      name: '登录',
+      component: ()=>import('@/components/Login.vue')
     }
   ]
 })

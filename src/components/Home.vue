@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useLogin } from '@/stores/user';
 import { computed } from 'vue';
-const { userInfo, Login, GetInfo } = useLogin()
+const { userInfo, GetInfo } = useLogin()
 
-Login({username: "admin_user", password: "123456"})
 
 const handleGetInfo = () => {
   GetInfo()
