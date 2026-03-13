@@ -158,7 +158,7 @@ const rules = {
   confirmPassword: [
     { required: true, message: '请确认密码', trigger: 'blur' },
     {
-      validator: (_, value) => {
+      validator: (_: any, value: any) => {
         if (value !== form.password) {
           return Promise.reject(new Error('两次输入的密码不一致'));
         }
