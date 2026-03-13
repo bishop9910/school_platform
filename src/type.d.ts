@@ -23,6 +23,16 @@ export type UserLoginInput = {
   password: string
 }
 
+export type UserRegisterInput = {
+  username: string
+  email: string
+  password: string
+}
+
 export type LoginResult = {
   token: string
+}
+
+export type RegisterResult = {
+  message: string
 }

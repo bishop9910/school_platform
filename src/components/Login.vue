@@ -81,7 +81,7 @@
       <!-- 底部链接 -->
       <div class="login-footer">
         <span class="footer-text">还没有账号？</span>
-        <a class="footer-link" @click="handleRegister">立即注册</a>
+        <router-link to="/register" class="footer-link">立即注册</router-link>
       </div>
 
       <!-- 忘记密码 -->
@@ -145,11 +145,6 @@ const handleSubmit = async () => {
 const handleForgot = () => {
   // TODO: 忘记密码逻辑
   message.info('忘记密码功能开发中...')
-}
-
-const handleRegister = () => {
-  // TODO: 跳转注册页
-  message.info('注册功能开发中...')
 }
 
 </script>
