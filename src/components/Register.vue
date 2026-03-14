@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :data-theme="ThemeStore.isDark?'dark':'light'">
     <!-- 背景装饰 -->
     <div class="login-bg">
       <div class="bg-circle circle-1"></div>
@@ -110,7 +110,7 @@
       <!-- 底部链接 -->
       <div class="login-footer">
         <span class="footer-text">已有账号？</span>
-        <a class="footer-link" @click="handleLogin">立即登录</a>
+        <a class="footer-link" @click="handleLogin" >立即登录</a>
       </div>
     </div>
 
@@ -129,6 +129,8 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons-vue'
 import defIcon from '@/assets/image/default_avatar.avif';
 import { register } from '@/api/login';
 import type { UserRegisterInput } from '@/type';
+import {useThemeStore} from '@/stores/theme'
+const ThemeStore = useThemeStore()
 
 const router = useRouter();
 const formRef = ref();
@@ -207,15 +209,24 @@ const handleLogin = () => {
 </script>
 
 <style scoped>
+.footer-link{
+  cursor: pointer;
+}
 /* 复用登录页面的样式 */
+.login-container[data-theme="dark"] {
+  --bg-1 :#1a1a2e;
+  --bg-2 :#263c77;
+}
 .login-container {
+  --bg-1 :#667eea;
+  --bg-2 :#764ba2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
   overflow: hidden;
 }
 

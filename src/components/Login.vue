@@ -1,7 +1,7 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :data-theme = "theme.isDark ? 'dark' : 'light'">
     <!-- 背景装饰 -->
-    <div class="login-bg">
+    <div class="login-bg" >
       <div class="bg-circle circle-1"></div>
       <div class="bg-circle circle-2"></div>
       <div class="bg-circle circle-3"></div>
@@ -99,14 +99,23 @@
 
 <script setup lang="ts">
 
-import { ref, reactive } from 'vue'
+import { ref, reactive,toRef } from 'vue'
 import type { FormInstance } from 'ant-design-vue'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import type { Rule } from 'ant-design-vue/es/form';
 import defIcon from '@/assets/image/default_avatar.avif'
+import cache from '@/utils/cache'
+import { useRouter } from 'vue-router'
+import {isEmpty } from '@/utils/validate'
+import { login } from '@/api/login'
+import type { ApiResponse } from '@/utils/request';
+import { useThemeStore } from '@/stores/theme'
+const theme = useThemeStore();
+
 // import { useLogin } from '@/store/login'
 // import { useRouter } from 'vue-router'
+const router = useRouter();
 
 // ============ 表单数据 ============
 const form = reactive({
@@ -134,12 +143,53 @@ const rules: Record<string, Rule[]> = {
 }
 
 // ============ 事件处理 ============
-const handleSubmit = async () => {
-  // TODO: 你的登录逻辑
-  // 1. 表单验证（a-form 已自动处理）
-  // 2. 密码加密（如需）
-  // 3. 调用 API
-  // 4. 处理响应
+const handleSubmit = (values: any) => {
+  loading.value = true
+  submitError.value = ''
+
+  // 前置验证
+  if (isEmpty(values.username)) {
+    submitError.value = '账号不能为空'
+    message.error('账号不能为空')
+    loading.value = false
+    return
+  }
+  if (isEmpty(values.password)) {
+    submitError.value = '密码不能为空'
+    message.error('密码不能为空')
+    loading.value = false
+    return
+  }
+
+  // 调用 API 链式处理
+  login(values.username, values.password)
+    .then((res: ApiResponse) => {
+      // 缓存凭证
+      if (res.data?.token) {
+        cache.session.set('token', res.data.token)
+      }
+      if (res.data?.userInfo) {
+        cache.local.setJSON('userInfo', res.data.userInfo)
+      }
+
+      // 成功反馈
+      message.success('登录成功！')
+      console.log(res)
+      setTimeout(() => {
+        router.push('/').catch(() => {
+          // 跳转失败兜底
+          window.location.href = '/'
+        })
+      }, 500)
+    })
+    .catch((error: any) => {
+      const errorMsg = '登录失败，请检查账号密码'
+      submitError.value = String(errorMsg)
+      message.error(String(errorMsg))
+    })
+    .finally(() => {
+      loading.value = false
+    })
 }
 
 const handleForgot = () => {
@@ -171,17 +221,24 @@ $shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
 $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 // ============ 容器布局 ============
+.login-container[data-theme="dark"] {
+  --bg-1 :#1a1a2e;
+  --bg-2 :#263c77;
+}
 .login-container {
+  --bg-1 :#667eea;
+  --bg-2 :#764ba2;
   min-height: 93.17vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
   position: relative;
   overflow: hidden;
   padding: 20px;
 }
+
 
 // ============ 背景装饰 ============
 .login-bg {
@@ -310,7 +367,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       label {
         font-size: 14px;
         font-weight: 500;
-        color: $text-light;
+        //color: $text-light;
       }
     }
 
@@ -336,7 +393,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       input {
         font-size: 14px;
         color: $text-primary;
-        background-color: #2a2a2a;
+        // background-color: #2a2a2a;
 
         &::placeholder {
           color: #444;
@@ -380,6 +437,7 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: linear-gradient(135deg, $primary-color, $primary-hover);
   border: none;
   transition: $transition;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);

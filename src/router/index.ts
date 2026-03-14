@@ -6,23 +6,24 @@ const router = createRouter({
     {
       path: '/',
       name: '主页',
-      component: ()=>import('@/components/Home.vue')
+      component: () => import('@/components/Home.vue')
     },
     {
       path: '/test',
       name: '测试',
-      component: ()=>import('@/components/Test.vue')
+      component: () => import('@/components/Test.vue')
     },
     {
       path: '/login',
       name: '登录',
-      component: ()=>import('@/components/Login.vue')
+      component: () => import('@/components/Login.vue')
     },
     {
       path: '/register',
       name: '注册',
-      component: ()=>import('@/components/Register.vue')
-    }
+      component: () => import('@/components/Register.vue')
+    },
+
   ]
 })
 

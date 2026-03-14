@@ -1,14 +1,16 @@
 // utils/request.ts
 import axios from 'axios';
-import type{ 
-  AxiosInstance, 
-  AxiosRequestConfig, 
-  AxiosResponse, 
-  InternalAxiosRequestConfig 
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig
 } from 'axios';
 import { getToken } from './auth';
-
-interface ApiResponseBase{
+import router from '@/router';
+import { useRouter } from 'vue-router'
+const trouter = useRouter()
+interface ApiResponseBase {
   status: number;
   message: string;
   headers: any,
@@ -25,9 +27,9 @@ type ApiConfig = {
   timeout: number
 }
 
-function getApiConfig(): ApiConfig{
+function getApiConfig(): ApiConfig {
   return {
-    baseURL: "http://localhost:8080/app/",
+    baseURL: "http://localhost:8080/app",
     timeout: 3000
   }
 }
@@ -37,10 +39,11 @@ class Request {
 
   constructor() {
     const config = getApiConfig();
-    
+
     this.instance = axios.create({
       baseURL: config.baseURL,
       timeout: config.timeout,
+      // withCredentials: true,
       headers: {
         'Content-Type': 'application/json;charset=UTF-8'
       }
@@ -49,7 +52,7 @@ class Request {
     // 请求拦截器
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
-        const token = getToken();
+        const token = getToken("Auth-Token");
         if (token && config.headers && (config.headers as any).isToken) {
           (config.headers as any).Authorization = `Bearer ${token}`;
         }
@@ -65,9 +68,11 @@ class Request {
     this.instance.interceptors.response.use(
       (response: AxiosResponse<ApiResponse>) => {
         const res = response.data;
-        if (res.code !== 200) {
-          console.error(res.message || 'Request Error');
-          return Promise.reject(new Error(res.message || 'Error'));
+        if (response.status == 401) {
+          alert('qqqq')
+          setTimeout(() => {
+            trouter.push('/login')
+          }, 3000)
         }
         return res
       },

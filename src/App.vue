@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-
+import {useThemeStore} from '@/stores/theme'
 const isDark = ref(false)
+const ThemeStore = useThemeStore()
 
 onMounted(() => {
   const saved = localStorage.getItem('theme') as 'light' | 'dark' | null
@@ -12,6 +13,7 @@ onMounted(() => {
 
 watch(isDark, (newVal) => {
   localStorage.setItem('theme', newVal ? "dark" : "light")
+  ThemeStore.isDark = isDark.value
 })
 </script>
 
