@@ -9,7 +9,7 @@ import defAva from "@/assets/image/default_avatar.avif"
 
 export const useLogin = defineStore('login', () => {
   const userInfo: UserInfo = reactive({
-    token: getToken(),
+    token: getToken("Auth-Token"),
     id: '',
     username: '',
     nickName: '',
@@ -21,13 +21,13 @@ export const useLogin = defineStore('login', () => {
     email: ''
   })
 
-  function Login(userInput: UserLoginInput): Promise<void>{
+  function Login(userInput: UserLoginInput): Promise<void> {
     const username: string = userInput.username.trim()
     const password: string = userInput.password
 
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
       login(username, password).then(res => {
-        setToken(res.token!)
+        setToken("Auth-Token", res.token!)
         userInfo.token = res.token
         resolve()
       }).catch(error => {
@@ -36,7 +36,7 @@ export const useLogin = defineStore('login', () => {
     })
   }
 
-  function GetInfo(): Promise<void>{
+  function GetInfo(): Promise<void> {
     return new Promise((resolve, reject) => {
       getInfo().then(res => {
 

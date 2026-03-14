@@ -111,6 +111,7 @@ import {isEmpty } from '@/utils/validate'
 import { login } from '@/api/login'
 import type { ApiResponse } from '@/utils/request';
 import { useThemeStore } from '@/stores/theme'
+import { setToken, getToken ,removeToken } from '@/utils/auth'
 const theme = useThemeStore();
 
 // import { useLogin } from '@/store/login'
@@ -165,8 +166,9 @@ const handleSubmit = (values: any) => {
   login(values.username, values.password)
     .then((res: ApiResponse) => {
       // 缓存凭证
-      if (res.data?.token) {
-        cache.session.set('token', res.data.token)
+      if (res.data?.access_token) {
+        setToken('Auth_token', res.data.access_token)
+        setToken('refresh_token', res.data.refresh_token)
       }
       if (res.data?.userInfo) {
         cache.local.setJSON('userInfo', res.data.userInfo)
