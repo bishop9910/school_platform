@@ -6,9 +6,10 @@ import type {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios';
-import { getToken } from './auth';
+import { getToken, removeToken, setToken } from './auth';
 import router from '@/router';
 import { useRouter } from 'vue-router'
+import { message } from 'ant-design-vue';
 const trouter = useRouter()
 interface ApiResponseBase {
   status: number;
@@ -68,15 +69,26 @@ class Request {
     this.instance.interceptors.response.use(
       (response: AxiosResponse<ApiResponse>) => {
         const res = response.data;
-        if (response.status == 401) {
-          alert('qqqq')
-          setTimeout(() => {
-            trouter.push('/login')
-          }, 3000)
-        }
         return res
       },
       (error: any) => {
+        if (error.status === 401) {
+          removeToken("Auth_Token");
+          const Refresh_Token = getToken("Refresh_Token");
+          if (Refresh_Token) {
+            const response = axios.post(
+              'http://localhost:8080/app/auth/refresh',
+              { refresh_token: Refresh_Token }
+            ).then(res => {
+              setToken("Auth_Token", res.data.access_token)
+            }).catch(error => {
+              message.error("请重新登录")
+              setTimeout(() => {
+                trouter.push('/login')
+              }, 3000)
+            })
+          }
+        }
         console.error('HTTP Error:', error.message);
         return Promise.reject(error);
       }
