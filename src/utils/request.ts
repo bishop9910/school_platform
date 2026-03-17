@@ -11,17 +11,17 @@ import router from '@/router';
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue';
 const trouter = useRouter()
-interface ApiResponseBase {
+interface ApiResponseBase<T>{
   status: number;
   message: string;
   headers: any,
   config: InternalAxiosRequestConfig;
   statusText: string;
   code: number;
-  data: ApiResponse
+  data: T
 }
 
-export type ApiResponse<T = any> = ApiResponseBase & Partial<T>;
+export type ApiResponse<T = any> = ApiResponseBase<T> & Partial<T>;
 
 type ApiConfig = {
   baseURL: string,
