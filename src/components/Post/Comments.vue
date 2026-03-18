@@ -10,7 +10,7 @@ import {
   getAvatarUrl 
 } from '@/api/post'
 import type { PostComment } from '../../type'
-import { UserOutlined, LikeOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps<{
   postId: number
@@ -137,6 +137,9 @@ onMounted(() => {
           @click="handleSubmit"
           :disabled="!commentContent.trim()"
         >
+        <template #icon>
+          <MessageOutlined />
+        </template>
           发布评论
         </a-button>
       </div>
@@ -204,9 +207,39 @@ onMounted(() => {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   
+  --btn-primary-bg: #1677ff;
+  --btn-primary-border: #1677ff;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover-bg: #4096ff;
+  --btn-primary-hover-border: #4096ff;
+  --btn-primary-disabled-bg: #d9d9d9;
+  
+  --btn-text-bg: transparent;
+  --btn-text-border: transparent;
+  --btn-text-text: var(--text-secondary, #666);
+  --btn-text-hover-bg: rgba(0, 0, 0, 0.05);
+
+  margin-top: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
   &[data-theme="dark"] {
     background: rgba(30, 30, 46, 0.95);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+    --btn-primary-bg: #177ddc;
+    --btn-primary-border: #177ddc;
+    --btn-primary-text: #ffffff;
+    --btn-primary-hover-bg: #40a9ff;
+    --btn-primary-hover-border: #40a9ff;
+    --btn-primary-disabled-bg: #444;
+    
+    --btn-text-bg: transparent;
+    --btn-text-border: transparent;
+    --btn-text-text: #aaa;
+    --btn-text-hover-bg: rgba(255, 255, 255, 0.1);
     
     :deep(.ant-comment-content) {
       color: rgba(255, 255, 255, 0.85);
@@ -301,6 +334,82 @@ onMounted(() => {
   &[data-theme="dark"] & {
     .ant-comment-content {
       background: rgba(40, 40, 60, 0.5);
+    }
+  }
+}
+
+:deep(.ant-btn) {
+  // Primary 按钮（发布评论）
+  &.ant-btn-primary {
+    background: var(--btn-primary-bg) !important;
+    border-color: var(--btn-primary-border) !important;
+    color: var(--btn-primary-text) !important;
+    
+    &:hover {
+      background: var(--btn-primary-hover-bg) !important;
+      border-color: var(--btn-primary-hover-border) !important;
+    }
+    
+    &:disabled {
+      background: var(--btn-primary-disabled-bg) !important;
+      border-color: transparent !important;
+      opacity: 0.6;
+    }
+  }
+  
+  // 普通文本按钮/链接样式
+  &:not(.ant-btn-primary):not(.ant-btn-dangerous) {
+    background: var(--btn-text-bg) !important;
+    border-color: var(--btn-text-border) !important;
+    color: var(--btn-text-text) !important;
+    
+    &:hover {
+      background: var(--btn-text-hover-bg) !important;
+      color: var(--btn-primary-hover-border) !important;
+    }
+  }
+}
+
+// 评论输入区的按钮容器适配
+.comment-actions {
+  .ant-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    .anticon {
+      font-size: 14px;
+    }
+  }
+}
+
+// 评论列表中的删除链接
+.comment-delete {
+  color: var(--btn-danger-text, #ff4d4f) !important;
+  
+  &:hover {
+    color: #ff7875 !important;
+    text-decoration: underline;
+  }
+}
+
+// 暗色模式下的文字颜色适配
+:deep(.ant-comment) {
+  &[data-theme="dark"] & {
+    .ant-comment-content {
+      background: rgba(40, 40, 60, 0.5);
+    }
+    .ant-btn > span {
+      color: #fff;
+    }
+    .comment-username {
+      color: #f0f0f0 !important;
+    }
+    .comment-text {
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+    .comment-meta {
+      color: #aaa !important;
     }
   }
 }

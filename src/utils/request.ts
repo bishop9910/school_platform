@@ -8,9 +8,7 @@ import type {
 } from 'axios';
 import { getToken, removeToken, setToken } from './auth';
 import router from '@/router';
-import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue';
-const trouter = useRouter()
 interface ApiResponseBase<T>{
   status: number;
   message: string;
@@ -20,6 +18,7 @@ interface ApiResponseBase<T>{
   code: number;
   data: T
 }
+import { AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY} from './auth'
 
 export type ApiResponse<T = any> = ApiResponseBase<T> & Partial<T>;
 
@@ -60,6 +59,7 @@ class Request {
         if ((config.headers as any).isToken === false) {
           delete (config.headers as any).Authorization;
         }
+        delete config.headers.isToken;
         return config;
       },
       (error: any) => Promise.reject(error)
@@ -71,29 +71,36 @@ class Request {
         const res = response.data;
         return res
       },
-      (error: any) => {
-        if (error.status === 401) {
-          removeToken("Auth_Token");
-          const Refresh_Token = getToken("Refresh_Token");
-          if (Refresh_Token) {
-            const response = axios.post(
-              '/auth/refresh',
-              { refresh_token: Refresh_Token }
-            ).then(res => {
-              setToken("Auth_Token", res.data.access_token)
-            }).catch(error => {
-              message.error("请重新登录")
-              setTimeout(() => {
-                trouter.push('/login')
-              }, 3000)
-            })
-          }
+    (error: any) => {
+      const originalRequest = error.config;
+      if (error.response?.status === 401) {
+        const refreshToken = getToken(REFRESH_TOKEN_KEY);
+        if (refreshToken) {
+          return axios.create({ baseURL: getApiConfig().baseURL })
+          .post('/auth/refresh', { refresh_token: refreshToken })
+          .then(res => {
+            setToken(AUTH_TOKEN_KEY, res.data.access_token);
+            originalRequest.headers.Authorization = `Bearer ${res.data.access_token}`;
+            return this.instance.request(originalRequest);
+          })
+          .catch(() => {
+            removeToken(AUTH_TOKEN_KEY);
+            removeToken(REFRESH_TOKEN_KEY);
+            message.error('登录已过期，请重新登录');
+            setTimeout(() => router.push('/login'), 1500);
+            return Promise.reject(error);
+        });}else{
+          removeToken(AUTH_TOKEN_KEY);
+          removeToken(REFRESH_TOKEN_KEY);
+          message.error('登录已过期，请重新登录');
+          setTimeout(() => router.push('/login'), 1500);
+          return Promise.reject(error);
         }
-        console.error('HTTP Error:', error.message);
-        return Promise.reject(error);
       }
-    );
-  }
+      message.error(error.response?.data?.message || '请求失败');
+      return Promise.reject(error);
+  });
+}
 
   public setBaseURL(newBaseURL: string): void {
     this.instance.defaults.baseURL = newBaseURL;

@@ -31,7 +31,7 @@ const loading = ref(true)
 const currentUserId = ref<number | null>(null)
 
 // 从路由获取帖子ID
-const postId = computed(() => Number(route.params.id || route.query.id))
+const postId = computed(() => Number(route.params.id))
 
 // 加载帖子详情
 const fetchPostDetail = async () => {
@@ -44,13 +44,7 @@ const fetchPostDetail = async () => {
   try {
     const res = await getPost(postId.value)
     if (res.success && res.data) {
-      const target = res.data.data
-      if (target) {
-        post.value = target
-      } else {
-        message.error('帖子不存在')
-        router.back()
-      }
+      post.value = res.data
     }
   } catch (err: any) {
     message.error(err.message || '加载失败')
@@ -102,19 +96,13 @@ const handleDeletePost = () => {
         const res = await deletePost(postId.value)
         if (res.success) {
           message.success('删除成功')
-          router.push('/community')
+          router.push('/')
         }
       } catch (err: any) {
         message.error(err.message || '删除失败')
       }
     }
   })
-}
-
-// 添加评论
-const handleCommentAdd = () => {
-  // 发评论
-  console.log('添加新评论')
 }
 
 // 评论添加后的回调
@@ -155,9 +143,12 @@ onMounted(() => {
           <div class="post-author">
             <a-avatar 
               :src="post.author?.avatar ? getAvatarUrl(post.author.avatar) : undefined"
-              :icon="UserOutlined"
               class="author-avatar"
-            />
+            >
+            <template #icon>
+              <UserOutlined/>
+            </template>
+            </a-avatar>
             <span class="author-name">{{ post.author?.nickname || post.author?.username || `用户${post.user_id}` }}</span>
             <span class="post-time">{{ new Date(post.create_time).toLocaleString('zh-CN') }}</span>
           </div>
@@ -185,13 +176,16 @@ onMounted(() => {
         <!-- 帖子底部操作 -->
         <div class="post-footer">
           <div class="post-actions">
-            <a-button @click="handleLike" :icon="LikeOutlined">
+            <a-button @click="handleLike">
+                <template #icon>
+                  <LikeOutlined />
+                </template>
               点赞 {{ post.like }}
             </a-button>
-            <a-button @click="handleCommentAdd" :icon="MessageOutlined">
-              发评论
-            </a-button>
-            <a-button @click="handleShare" :icon="ShareAltOutlined">
+            <a-button @click="handleShare">
+              <template #icon>
+                <ShareAltOutlined />
+              </template>
               分享
             </a-button>
             <!-- 仅作者可见删除按钮 -->
@@ -228,6 +222,16 @@ onMounted(() => {
   --text-primary: #1a1a2e;
   --text-secondary: #4a4a6a;
   --card-bg: rgba(255, 255, 255, 0.95);
+  --btn-bg: #ffffff;
+  --btn-border: #d9d9d9;
+  --btn-text: var(--text-primary);
+  --btn-hover-bg: #fafafa;
+  --btn-hover-border: #40a9ff;
+  --btn-hover-text: #40a9ff;
+  --btn-active-bg: #f0f0f0;
+  --btn-danger-border: #ff4d4f;
+  --btn-danger-text: #ff4d4f;
+  --btn-danger-hover-bg: #fff1f0;
   
   min-height: 93.17vh;
   display: flex;
@@ -245,6 +249,17 @@ onMounted(() => {
     --text-primary: #f0f0f0;
     --text-secondary: #aaa;
     --card-bg: rgba(30, 30, 46, 0.95);
+
+    --btn-bg: #2a2a4a;
+    --btn-border: #444;
+    --btn-text: #f0f0f0;
+    --btn-hover-bg: #3a3a5a;
+    --btn-hover-border: #177ddc;
+    --btn-hover-text: #69b1ff;
+    --btn-active-bg: #4a4a6a;
+    --btn-danger-border: #ff7875;
+    --btn-danger-text: #ff7875;
+    --btn-danger-hover-bg: #3a2020;
   }
 }
 
@@ -432,6 +447,69 @@ onMounted(() => {
       margin-left: 0;
       width: 100%;
       margin-top: 8px;
+    }
+  }
+}
+
+.post-actions {
+  .ant-btn {
+    // 基础样式
+    background: var(--btn-bg) !important;
+    border-color: var(--btn-border) !important;
+    color: var(--btn-text) !important;
+    
+    // 图标颜色
+    .anticon {
+      color: var(--btn-text) !important;
+      transition: color 0.3s;
+    }
+    
+    // Hover 状态
+    &:hover {
+      background: var(--btn-hover-bg) !important;
+      border-color: var(--btn-hover-border) !important;
+      color: var(--btn-hover-text) !important;
+      
+      .anticon {
+        color: var(--btn-hover-text) !important;
+      }
+    }
+    
+    // Active 状态
+    &:active {
+      background: var(--btn-active-bg) !important;
+    }
+    
+    // Danger 按钮（删除）
+    &.ant-btn-dangerous {
+      border-color: var(--btn-danger-border) !important;
+      color: var(--btn-danger-text) !important;
+      
+      .anticon {
+        color: var(--btn-danger-text) !important;
+      }
+      
+      &:hover {
+        background: var(--btn-danger-hover-bg) !important;
+        border-color: #ff4d4f !important;
+        color: #ff4d4f !important;
+        
+        .anticon {
+          color: #ff4d4f !important;
+        }
+      }
+    }
+    
+    // 禁用状态
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      
+      &:hover {
+        background: var(--btn-bg) !important;
+        border-color: var(--btn-border) !important;
+        color: var(--btn-text) !important;
+      }
     }
   }
 }

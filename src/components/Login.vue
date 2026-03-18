@@ -84,10 +84,6 @@
         <router-link to="/register" class="footer-link">立即注册</router-link>
       </div>
 
-      <!-- 忘记密码 -->
-      <div class="forgot-wrapper">
-        <a class="forgot-link" @click="handleForgot">忘记密码？</a>
-      </div>
     </div>
 
     <!-- 版权信息 -->
@@ -99,7 +95,7 @@
 
 <script setup lang="ts">
 
-import { ref, reactive,toRef } from 'vue'
+import { ref, reactive, toRef } from 'vue'
 import type { FormInstance } from 'ant-design-vue'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
@@ -111,11 +107,8 @@ import {isEmpty } from '@/utils/validate'
 import { login } from '@/api/login'
 import type { ApiResponse } from '@/utils/request';
 import { useThemeStore } from '@/stores/theme'
-import { setToken, getToken ,removeToken } from '@/utils/auth'
+import { setToken, getToken ,removeToken, AUTH_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/utils/auth'
 const theme = useThemeStore();
-
-// import { useLogin } from '@/store/login'
-// import { useRouter } from 'vue-router'
 const router = useRouter();
 
 // ============ 表单数据 ============
@@ -167,8 +160,8 @@ const handleSubmit = (values: any) => {
     .then((res: ApiResponse) => {
       // 缓存凭证
       if (res.data?.access_token) {
-        setToken('Auth_token', res.data.access_token)
-        setToken('refresh_token', res.data.refresh_token)
+        setToken(AUTH_TOKEN_KEY, res.data.access_token)
+        setToken(REFRESH_TOKEN_KEY, res.data.refresh_token)
       }
       if (res.data?.userInfo) {
         cache.local.setJSON('userInfo', res.data.userInfo)
@@ -192,11 +185,6 @@ const handleSubmit = (values: any) => {
     .finally(() => {
       loading.value = false
     })
-}
-
-const handleForgot = () => {
-  // TODO: 忘记密码逻辑
-  message.info('忘记密码功能开发中...')
 }
 
 </script>

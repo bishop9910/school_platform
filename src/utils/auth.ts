@@ -13,3 +13,6 @@ export function removeToken(tokenKey: string) {
 }
 
 //Auth-Token   Refresh-Token
+
+export const AUTH_TOKEN_KEY = 'Auth-Token';
+export const REFRESH_TOKEN_KEY = 'Refresh-Token';

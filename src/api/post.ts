@@ -95,12 +95,12 @@ export function deletePost(
  * 获取帖子图片（返回完整URL）
  */
 export function getPostImageUrl(filename: string): string {
-  return `http://localhost:8080/app/files/post/${filename}`;
+  return `http://localhost:8080/app${filename}`;
 }
 
 /**
  * 获取头像图片（返回完整URL）
  */
 export function getAvatarUrl(filename: string): string {
-  return `http://localhost:8080/app/files/avatar/${filename}`;
+  return `http://localhost:8080/app${filename}`;
 }

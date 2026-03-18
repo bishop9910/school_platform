@@ -23,7 +23,11 @@ const router = createRouter({
       name: '注册',
       component: () => import('@/components/Register.vue')
     },
-
+    {
+      path: '/post/:id',
+      name: '帖子',
+      component: () => import('@/components/Post/Detail.vue')
+    }
   ]
 })
 
