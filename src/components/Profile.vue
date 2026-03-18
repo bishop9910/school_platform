@@ -57,7 +57,6 @@
       <div class="profile-actions">
         <a-button type="primary" class="action-btn">编辑资料</a-button>
         <a-button class="action-btn">我的帖子</a-button>
-        <a-button class="action-btn">我的收藏</a-button>
       </div>
     </div>
   </div>

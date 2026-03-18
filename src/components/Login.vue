@@ -88,14 +88,14 @@
 
     <!-- 版权信息 -->
     <div class="copyright">
-      © 2024 Your Company. All rights reserved.
+      © 2026 bishop9910. All rights reserved.
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 
-import { ref, reactive, toRef } from 'vue'
+import { ref, reactive, toRef, computed } from 'vue'
 import type { FormInstance } from 'ant-design-vue'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
@@ -190,45 +190,122 @@ const handleSubmit = (values: any) => {
 </script>
 
 <style scoped lang="scss">
-// ============ 变量定义 ============
-$primary-color: #1890ff;
-$primary-hover: #40a9ff;
-$primary-light: #e6f7ff;
-$text-primary: #000000e0;
-$text-secondary: #000000a6;
-$text-light: #fffee6;
-$text-disabled: #00000040;
-$border-color: #d9d9d9;
-$bg-color: #f5f5f5;
+@use 'sass:map';
+
+// ============ 基础变量（避免未定义错误） ============
 $white: #ffffff;
-$danger: #ff4d4f;
-$success: #52c41a;
+$primary: #667eea;
+$primary-hover: #764ba2;
 
-$border-radius: 8px;
-$border-radius-lg: 12px;
-$shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+// ============ 亮色主题 ============
+$theme-light: (
+  bg-from: #667eea,
+  bg-to: #764ba2,
+  card-bg: #ffffff,
+  card-border: rgba(255, 255, 255, 0.2),
+  text-primary: #1a1a2e,
+  text-secondary: #666666,
+  text-placeholder: #999999,
+  input-bg: #ffffff,
+  input-border: #d9d9d9,
+  input-hover: #40a9ff,
+  input-focus: #1890ff,
+  footer-border: rgba(0, 0, 0, 0.1),
+  error-bg: #fff2f0,
+  error-border: #ffccc7,
+  error-text: #ff4d4f,
+  shadow-card: 0 8px 32px rgba(0, 0, 0, 0.12),
+  shadow-input: 0 2px 8px rgba(0, 0, 0, 0.08),
+  shadow-btn: 0 4px 16px rgba(102, 126, 234, 0.4),
+);
 
-// ============ 容器布局 ============
-.login-container[data-theme="dark"] {
-  --bg-1 :#1a1a2e;
-  --bg-2 :#263c77;
+// ============ 暗色主题 ============
+$theme-dark: (
+  bg-from: #1a1a2e,
+  bg-to: #16213e,
+  card-bg: #1e1e2e,
+  card-border: rgba(255, 255, 255, 0.1),
+  text-primary: #ffffff,
+  text-secondary: #aaaaaa,
+  text-placeholder: #666666,
+  input-bg: #2a2a3e,
+  input-border: #44445a,
+  input-hover: #5a6fd6,
+  input-focus: #667eea,
+  footer-border: rgba(255, 255, 255, 0.1),
+  error-bg: rgba(255, 77, 79, 0.15),
+  error-border: rgba(255, 77, 79, 0.3),
+  error-text: #ff787a,
+  shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4),
+  shadow-input: 0 2px 8px rgba(0, 0, 0, 0.2),
+  shadow-btn: 0 4px 16px rgba(102, 126, 234, 0.3),
+);
+
+// ============ 主题 Mixin（核心：用选择器替代 if() 函数） ============
+@mixin t($property, $key, $important: false) {
+  $value: map.get($theme-light, $key);
+  $dark-value: map.get($theme-dark, $key);
+  
+  @if $important {
+    #{$property}: $value !important;
+    [data-theme="dark"] & {
+      #{$property}: $dark-value !important;
+    }
+  } @else {
+    #{$property}: $value;
+    [data-theme="dark"] & {
+      #{$property}: $dark-value;
+    }
+  }
 }
+
+// 快捷 mixin
+@mixin text-main { @include t(color, text-primary); }
+@mixin text-sub { @include t(color, text-secondary); }
+@mixin card-style {
+  @include t(background, card-bg);
+  @include t(border-color, card-border);
+  @include t(box-shadow, shadow-card);
+}
+@mixin input-style {
+  @include t(background, input-bg, true);
+  @include t(border-color, input-border);
+  @include t(color, text-primary);
+  &::placeholder { @include t(color, text-placeholder); }
+  &:hover { @include t(border-color, input-hover); }
+  &:focus {
+    @include t(border-color, input-focus);
+    box-shadow: 0 0 0 2px rgba(map.get($theme-light, input-focus), 0.1);
+    [data-theme="dark"] & {
+      box-shadow: 0 0 0 2px rgba(map.get($theme-dark, input-focus), 0.15);
+    }
+  }
+}
+
+// ============ 背景渐变 ============
+@function bg-gradient($theme) {
+  @return linear-gradient(135deg, 
+    map.get($theme, bg-from) 0%, 
+    map.get($theme, bg-to) 100%
+  );
+}
+
+// ============ 容器 ============
 .login-container {
-  --bg-1 :#667eea;
-  --bg-2 :#764ba2;
-  min-height: 93.17vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  background: bg-gradient($theme-light);
+  [data-theme="dark"] & {
+    background: bg-gradient($theme-dark);
+  }
   position: relative;
   overflow: hidden;
   padding: 20px;
+  transition: background 0.3s ease;
 }
-
 
 // ============ 背景装饰 ============
 .login-bg {
@@ -243,33 +320,16 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 .bg-circle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   animation: float 20s infinite ease-in-out;
+  [data-theme="dark"] & {
+    background: rgba(255, 255, 255, 0.03);
+  }
 }
 
-.circle-1 {
-  width: 500px;
-  height: 500px;
-  top: -150px;
-  right: -150px;
-  animation-delay: 0s;
-}
-
-.circle-2 {
-  width: 350px;
-  height: 350px;
-  bottom: -100px;
-  left: -100px;
-  animation-delay: -7s;
-}
-
-.circle-3 {
-  width: 250px;
-  height: 250px;
-  top: 40%;
-  left: 20%;
-  animation-delay: -14s;
-}
+.circle-1 { width: 500px; height: 500px; top: -150px; right: -150px; animation-delay: 0s; }
+.circle-2 { width: 350px; height: 350px; bottom: -100px; left: -100px; animation-delay: -7s; }
+.circle-3 { width: 250px; height: 250px; top: 40%; left: 20%; animation-delay: -14s; }
 
 @keyframes float {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -281,27 +341,28 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 .login-card {
   width: 100%;
   max-width: 400px;
-  background: $white;
-  border-radius: $border-radius-lg;
-  box-shadow: $shadow-lg;
+  border-radius: 16px;
   padding: 48px 40px;
   position: relative;
   z-index: 1;
   animation: slideUp 0.5s ease-out;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid map.get($theme-light, card-border);
+  
+  @include card-style;
+  [data-theme="dark"] & {
+    border-color: map.get($theme-dark, card-border);
+  }
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-// ============ 头部样式 ============
+// ============ 头部 ============
 .login-header {
   text-align: center;
   margin-bottom: 40px;
@@ -310,16 +371,20 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 72px;
     height: 72px;
     margin: 0 auto 20px;
-    background: $primary-light;
+    background: rgba(map.get($theme-light, input-focus), 0.1);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: $transition;
+    transition: all 0.3s ease;
 
     &:hover {
       transform: scale(1.05);
-      background: rgba($primary-color, 0.15);
+      background: rgba(map.get($theme-light, input-focus), 0.15);
+    }
+    [data-theme="dark"] & {
+      background: rgba(map.get($theme-dark, input-focus), 0.2);
+      &:hover { background: rgba(map.get($theme-dark, input-focus), 0.25); }
     }
 
     .logo {
@@ -332,19 +397,21 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   .title {
     font-size: 26px;
     font-weight: 600;
-    color: $text-primary;
+    @include text-main;
     margin: 0 0 8px;
     letter-spacing: -0.5px;
+    transition: color 0.3s ease;
   }
 
   .subtitle {
     font-size: 14px;
-    color: $text-secondary;
+    @include text-sub;
     margin: 0;
+    transition: color 0.3s ease;
   }
 }
 
-// ============ 表单样式 ============
+// ============ 表单（深度适配 AntD） ============
 .login-form {
   margin-bottom: 24px;
 
@@ -353,50 +420,36 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     .ant-form-item-label {
       padding-bottom: 8px;
-
       label {
         font-size: 14px;
         font-weight: 500;
-        //color: $text-light;
+        @include text-main;
+        transition: color 0.3s ease;
       }
     }
 
     .ant-input-affix-wrapper {
       padding: 12px 16px;
-      border-radius: $border-radius;
-      transition: $transition;
-
-      &:hover {
-        border-color: $primary-hover;
-      }
-
-      &.ant-input-affix-wrapper-focused {
-        border-color: $primary-color;
-        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
-      }
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      @include input-style;
 
       .input-icon {
         font-size: 16px;
         margin-right: 8px;
+        @include text-sub;
+        transition: color 0.3s ease;
       }
 
-      input {
-        font-size: 14px;
-        color: $text-primary;
-        // background-color: #2a2a2a;
-
-        &::placeholder {
-          color: #444;
-        }
+      .anticon {
+        @include t(color, text-secondary);
+        transition: color 0.3s ease;
       }
     }
 
-    .ant-input-password-icon {
-      color: $text-secondary;
-      transition: $transition;
-
-      &:hover {
-        color: $primary-color;
+    .ant-input-affix-wrapper-focused {
+      .input-icon, .anticon {
+        @include t(color, input-focus);
       }
     }
   }
@@ -405,17 +458,18 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 // ============ 错误提示 ============
 .form-error-global {
   margin-bottom: 24px;
+  transition: all 0.3s ease;
 
   :deep(.ant-alert) {
-    border-radius: $border-radius;
-    animation: shake 0.5s ease-in-out;
+    border-radius: 8px;
+    @include t(background, error-bg);
+    @include t(border-color, error-border);
+    
+    .ant-alert-message,
+    .ant-alert-icon {
+      @include t(color, error-text);
+    }
   }
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
 }
 
 // ============ 登录按钮 ============
@@ -423,24 +477,30 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   height: 48px;
   font-size: 16px;
   font-weight: 500;
-  border-radius: $border-radius;
-  background: linear-gradient(135deg, $primary-color, $primary-hover);
+  border-radius: 8px;
   border: none;
-  transition: $transition;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, $primary 0%, $primary-hover 100%);
+  transition: all 0.3s ease;
+  @include t(box-shadow, shadow-btn);
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba($primary-color, 0.4);
+    filter: brightness(1.05);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
   }
 
   &:active:not(:disabled) {
     transform: translateY(0);
+    filter: brightness(0.95);
   }
 
   &:disabled {
-    background: $border-color;
-    border-color: $border-color;
+    background: map.get($theme-light, input-border);
+    [data-theme="dark"] & {
+      background: map.get($theme-dark, input-border);
+    }
+    box-shadow: none;
+    cursor: not-allowed;
   }
 }
 
@@ -448,41 +508,25 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 .login-footer {
   text-align: center;
   padding-top: 16px;
-  border-top: 1px solid $border-color;
+  @include t(border-top-color, footer-border);
+  transition: border-color 0.3s ease;
 
   .footer-text {
     font-size: 14px;
-    color: $text-secondary;
+    @include text-sub;
+    transition: color 0.3s ease;
   }
 
   .footer-link {
     font-size: 14px;
-    color: $primary-color;
+    @include t(color, input-focus);
     margin-left: 6px;
     text-decoration: none;
     font-weight: 500;
-    transition: $transition;
+    transition: all 0.3s ease;
 
     &:hover {
-      color: $primary-hover;
-      text-decoration: underline;
-    }
-  }
-}
-
-// ============ 忘记密码 ============
-.forgot-wrapper {
-  text-align: center;
-  margin-top: 16px;
-
-  .forgot-link {
-    font-size: 13px;
-    color: $text-secondary;
-    text-decoration: none;
-    transition: $transition;
-
-    &:hover {
-      color: $primary-color;
+      @include t(color, input-hover);
       text-decoration: underline;
     }
   }
@@ -496,75 +540,31 @@ $transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: rgba(255, 255, 255, 0.85);
   text-align: center;
   letter-spacing: 0.5px;
+  
+  [data-theme="light"] & {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
 }
 
-// ============ 响应式适配 ============
+// ============ 响应式 ============
 @media (max-width: 480px) {
   .login-card {
     padding: 36px 28px;
     margin: 10px;
   }
-
-  .login-header .title {
-    font-size: 22px;
-  }
-
+  .login-header .title { font-size: 22px; }
   .logo-wrapper {
-    width: 60px;
-    height: 60px;
-
-    .logo {
-      width: 36px;
-      height: 36px;
-    }
+    width: 60px; height: 60px;
+    .logo { width: 36px; height: 36px; }
   }
-
-  .login-btn {
-    height: 44px;
-    font-size: 15px;
-  }
+  .login-btn { height: 44px; font-size: 15px; }
 }
 
-// ============ 暗色模式支持 ============
-@media (prefers-color-scheme: dark) {
-  .login-card {
-    background: #1f1f1f;
-  }
-
-  .title {
-    color: #fff !important;
-  }
-
-  .subtitle,
-  .footer-text,
-  .forgot-link {
-    color: #aaa !important;
-  }
-
-  :deep(.ant-input-affix-wrapper) {
-    background: #2a2a2a;
-    border-color: #444;
-
-    input {
-      color: #fff;
-
-      &::placeholder {
-        color: #888;
-      }
-    }
-
-    &:hover {
-      border-color: $primary-hover;
-    }
-
-    &.ant-input-affix-wrapper-focused {
-      border-color: $primary-color;
-      background: #2a2a2a;
-    }
-  }
-
-  .login-footer {
-    border-top-color: #444;
-  }
+// ============ 过渡优化 ============
+*, *::before, *::after {
+  transition-property: background, border-color, color, box-shadow, transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
 }
 </style>
