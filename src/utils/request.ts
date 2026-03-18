@@ -77,7 +77,7 @@ class Request {
           const Refresh_Token = getToken("Refresh_Token");
           if (Refresh_Token) {
             const response = axios.post(
-              'http://localhost:8080/app/auth/refresh',
+              '/auth/refresh',
               { refresh_token: Refresh_Token }
             ).then(res => {
               setToken("Auth_Token", res.data.access_token)

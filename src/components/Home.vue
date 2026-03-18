@@ -35,7 +35,7 @@ const ThemeStore = useThemeStore()
     <!-- 帖子列表 -->
     <div class="posts-container">
       <a-card 
-        v-for="i in 5" 
+        v-for="i in 10" 
         :key="i" 
         class="post-card"
         :bordered="true"
@@ -66,35 +66,34 @@ const ThemeStore = useThemeStore()
   --bg-1 :#1a1a2e;
   --bg-2 :#263c77;
 }
+
 .home-container {
-  /* position: absolute; */
   --bg-1 :#667eea;
   --bg-2 :#764ba2;
-  min-height: 93.17vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
   position: relative;
-  overflow: hidden;
+  min-height: 100vh; 
   padding: 20px;
+  box-sizing: border-box;
+
 }
 
-
-
 .home-bg {
-  /* position: absolute; */
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   pointer-events: none;
-  z-index: 0;  
+  z-index: 0;
+  overflow: hidden;
 }
 
 .bg-circle {
-  /* position: absolute; */
+  position: fixed;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   animation: float 20s infinite ease-in-out;
@@ -130,12 +129,10 @@ const ThemeStore = useThemeStore()
   33% { transform: translate(30px, -30px) scale(1.05); }
   66% { transform: translate(-20px, 20px) scale(0.95); }
 }
-/*  */
+
 .main-content {
-  
-  z-index: 10;
   position: relative;
-  z-index: 1;
+  z-index: 10;
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
