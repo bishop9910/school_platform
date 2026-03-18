@@ -12,8 +12,8 @@ export function login(username: string, password: string): Promise<ApiResponse<L
 
 export function getInfo(): Promise<ApiResponse<UserResInfo>> {
   return Request.request<UserResInfo>({
-    url: '/auth/getInfo',
-    method: 'post',
+    url: '/user/get-info',
+    method: 'get',
     headers: { isToken: true, repeatSubmit: false }
   });
 }

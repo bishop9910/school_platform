@@ -1,11 +1,12 @@
 import { getInfo, login } from "@/api/login";
 import type { UserInfo, UserLoginInput } from "@/type";
-import { getToken, setToken } from "@/utils/auth";
+import { getToken, setToken, AUTH_TOKEN_KEY } from "@/utils/auth";
 import { isEmpty, isHttp } from "@/utils/validate";
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 
 import defAva from "@/assets/image/default_avatar.avif"
+import request from "@/utils/request";
 
 export const useLogin = defineStore('login', () => {
   const userInfo: UserInfo = reactive({
@@ -18,7 +19,8 @@ export const useLogin = defineStore('login', () => {
     credit_coin: 0,
     credit_score: 100,
     signature: '',
-    email: ''
+    email: '',
+    role: 0
   })
 
   function Login(userInput: UserLoginInput): Promise<void> {
@@ -27,7 +29,7 @@ export const useLogin = defineStore('login', () => {
 
     return new Promise((resolve, reject) => {
       login(username, password).then(res => {
-        setToken("Auth-Token", res.token!)
+        setToken(AUTH_TOKEN_KEY, res.token!)
         userInfo.token = res.token
         resolve()
       }).catch(error => {
@@ -42,7 +44,7 @@ export const useLogin = defineStore('login', () => {
 
         let avatar = res.data.avatar || ""
         if (!isHttp(avatar)) {
-          avatar = (isEmpty(avatar)) ? defAva : import.meta.env.BASE_URL + avatar
+          avatar = (isEmpty(avatar)) ? defAva : request.getBaseURL() + avatar
         }
 
         userInfo.id = res.data.id!

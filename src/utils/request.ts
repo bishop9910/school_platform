@@ -107,6 +107,10 @@ class Request {
     console.log(`API baseURL updated to: ${newBaseURL}`);
   }
 
+  public getBaseURL(): string {
+    return this.instance.defaults.baseURL || "";
+  }
+
   public request<T = any>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
     return this.instance.request(config);
   }

@@ -43,15 +43,11 @@
         <div class="info-section">
           <h3 class="section-title">账号信息</h3>
           <div class="info-item">
-            <span class="info-label">ID：</span>
-            <span class="info-value">{{ userInfo.id }}</span>
+            <span class="info-label">信用分：</span>
+            <span class="info-value">{{ userInfo.credit_score }} | <span :class="showUserCreditScoreColor">{{ showUserCreditScore }}</span></span>
           </div>
           <div class="info-item">
-            <span class="info-label">积分：</span>
-            <span class="info-value">{{ userInfo.credit_score }}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">金币：</span>
+            <span class="info-label">信用金币：</span>
             <span class="info-value">{{ userInfo.credit_coin }}</span>
           </div>
         </div>
@@ -72,6 +68,7 @@ import { ref, onMounted, computed } from 'vue';
 import { useLogin } from '@/stores/user';
 import { useThemeStore } from '@/stores/theme';
 import defAvatar from '@/assets/image/default_avatar.avif';
+import { message } from 'ant-design-vue';
 
 const { userInfo, GetInfo } = useLogin();
 const themeStore = useThemeStore();
@@ -80,9 +77,29 @@ const isDark = computed(() => themeStore.isDark);
 onMounted(() => {
   // 加载用户信息
   GetInfo().catch(error => {
-    console.error('获取用户信息失败:', error);
+    message.error('获取用户信息失败:', error);
   });
 });
+
+const showUserCreditScoreColor = computed(()=>{
+  if (userInfo.credit_score >= 75){
+    return "score-good"
+  }else if (userInfo.credit_score >= 50){
+    return "score-normal"
+  }else{
+    return "score-bad"
+  }
+})
+
+const showUserCreditScore = computed(()=>{
+  if (userInfo.credit_score >= 75){
+    return "良好"
+  }else if (userInfo.credit_score >= 50){
+    return "中等"
+  }else{
+    return "较差"
+  }
+})
 
 // 转换性别显示文本
 const getGenderText = (gender: string | number): string => {
@@ -114,6 +131,18 @@ const getGenderText = (gender: string | number): string => {
 </script>
 
 <style scoped>
+.score-good {
+  color: #10B981;
+}
+
+.score-normal {
+  color: #F59E0B;
+}
+
+.score-bad {
+  color: #EF4444;
+}
+
 /* 基础样式 */
 .profile-container {
   min-height: 93.17vh;
