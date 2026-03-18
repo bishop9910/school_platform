@@ -1,0 +1,397 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\router\\index.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\router\\index.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Home.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\Home.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Test.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\Test.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Login.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\Login.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\assets\\style\\base.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\assets\\style\\base.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\api\\login.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\api\\login.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\tsconfig.app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:tsconfig.app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\tsconfig.node.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:tsconfig.node.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\vite.config.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:vite.config.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\env.d.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:env.d.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\main.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\App.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\App.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\validate.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\utils\\validate.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\request.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\utils\\request.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\cache.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\utils\\cache.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\auth.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\utils\\auth.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\stores\\user.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\stores\\user.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\public\\favicon.ico||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\favicon.ico||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "README.md",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\README.md",
+              "RelativeDocumentMoniker": "README.md",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\README.md",
+              "RelativeToolTip": "README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-03-13T07:15:21.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "package.json",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\package.json",
+              "RelativeDocumentMoniker": "package.json",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\package.json",
+              "RelativeToolTip": "package.json",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T07:15:17.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "package-lock.json",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\package-lock.json",
+              "RelativeDocumentMoniker": "package-lock.json",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\package-lock.json",
+              "RelativeToolTip": "package-lock.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T07:14:36.647Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "env.d.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\env.d.ts",
+              "RelativeDocumentMoniker": "env.d.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\env.d.ts",
+              "RelativeToolTip": "env.d.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:32.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "login.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\api\\login.ts",
+              "RelativeDocumentMoniker": "src\\api\\login.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\api\\login.ts",
+              "RelativeToolTip": "src\\api\\login.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:13:35.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "base.css",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\assets\\style\\base.css",
+              "RelativeDocumentMoniker": "src\\assets\\style\\base.css",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\assets\\style\\base.css",
+              "RelativeToolTip": "src\\assets\\style\\base.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-13T07:13:47.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Home.vue",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Home.vue",
+              "RelativeDocumentMoniker": "src\\components\\Home.vue",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Home.vue",
+              "RelativeToolTip": "src\\components\\Home.vue",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-13T07:13:51.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.vue",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Login.vue",
+              "RelativeDocumentMoniker": "src\\components\\Login.vue",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Login.vue",
+              "RelativeToolTip": "src\\components\\Login.vue",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-13T07:13:55.842Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Test.vue",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Test.vue",
+              "RelativeDocumentMoniker": "src\\components\\Test.vue",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\components\\Test.vue",
+              "RelativeToolTip": "src\\components\\Test.vue",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-13T07:13:58.337Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\router\\index.ts",
+              "RelativeDocumentMoniker": "src\\router\\index.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\router\\index.ts",
+              "RelativeToolTip": "src\\router\\index.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:00.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "index.html",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\index.html",
+              "RelativeDocumentMoniker": "index.html",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\index.html",
+              "RelativeToolTip": "index.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-13T07:14:34.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "tsconfig.app.json",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\tsconfig.app.json",
+              "RelativeDocumentMoniker": "tsconfig.app.json",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\tsconfig.app.json",
+              "RelativeToolTip": "tsconfig.app.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T07:15:24.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "tsconfig.node.json",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\tsconfig.node.json",
+              "RelativeDocumentMoniker": "tsconfig.node.json",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\tsconfig.node.json",
+              "RelativeToolTip": "tsconfig.node.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-13T07:15:27.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "vite.config.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\vite.config.ts",
+              "RelativeDocumentMoniker": "vite.config.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\vite.config.ts",
+              "RelativeToolTip": "vite.config.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:15:29.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": ".gitignore",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-13T07:14:29.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "main.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\main.ts",
+              "RelativeDocumentMoniker": "src\\main.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\main.ts",
+              "RelativeToolTip": "src\\main.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:28.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "App.vue",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\App.vue",
+              "RelativeDocumentMoniker": "src\\App.vue",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\App.vue",
+              "RelativeToolTip": "src\\App.vue",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2026-03-13T07:14:26.916Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "validate.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\validate.ts",
+              "RelativeDocumentMoniker": "src\\utils\\validate.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\validate.ts",
+              "RelativeToolTip": "src\\utils\\validate.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:25.258Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "request.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\request.ts",
+              "RelativeDocumentMoniker": "src\\utils\\request.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\request.ts",
+              "RelativeToolTip": "src\\utils\\request.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:23.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "cache.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\cache.ts",
+              "RelativeDocumentMoniker": "src\\utils\\cache.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\cache.ts",
+              "RelativeToolTip": "src\\utils\\cache.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:21.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "auth.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\auth.ts",
+              "RelativeDocumentMoniker": "src\\utils\\auth.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\utils\\auth.ts",
+              "RelativeToolTip": "src\\utils\\auth.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:06.184Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "user.ts",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\stores\\user.ts",
+              "RelativeDocumentMoniker": "src\\stores\\user.ts",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\src\\stores\\user.ts",
+              "RelativeToolTip": "src\\stores\\user.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-13T07:14:03.156Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "favicon.ico - Icon [32x32, 32 \u4F4D, BMP]",
+              "DocumentMoniker": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\public\\favicon.ico",
+              "RelativeDocumentMoniker": "public\\favicon.ico",
+              "ToolTip": "D:\\project\\\u5E73\u53F0\u9879\u76EE\\school_platform\\public\\favicon.ico - Icon [32x32, 32 \u4F4D, BMP]",
+              "RelativeToolTip": "public\\favicon.ico - Icon [32x32, 32 \u4F4D, BMP]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001525|",
+              "WhenOpened": "2026-03-13T07:13:29.164Z",
+              "EditorCaption": " - Icon [32x32, 32 \u4F4D, BMP]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

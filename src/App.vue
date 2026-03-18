@@ -19,11 +19,12 @@ watch(isDark, (newVal) => {
 
 <template>
   <nav :data-theme="isDark ? 'dark' : 'light'">
-    <div class="nav-links">
-      <router-link to="/">主页</router-link>
-      <router-link to="/login">登录</router-link>
-      <router-link to="/test">测试</router-link>
-    </div>
+      <div class="nav-links">
+        <router-link to="/">主页</router-link>
+        <router-link to="/test">测试</router-link>
+        <router-link to="/profile">个人中心</router-link>
+        <router-link to="/login">登录</router-link>
+      </div>
 
     <div class="nav-title">
       <h2>校园技能与资源流转平台</h2>

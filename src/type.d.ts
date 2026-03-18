@@ -16,6 +16,7 @@ export type UserBaseInfo = {
   credit_score: number
   email: string
   signature: string
+  role: number // 0: 普通用户, 1: 管理员
 }
 
 export type UserLoginInput = {

@@ -54,6 +54,7 @@ export const useLogin = defineStore('login', () => {
         userInfo.signature = res.data.signature!
         userInfo.credit_coin = res.data.credit_coin!
         userInfo.credit_score = res.data.credit_score!
+        userInfo.role = res.data.role || 0
 
         resolve()
       }).catch(error => {

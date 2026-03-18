@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\api",
+    "\\src\\assets",
+    "\\src\\assets\\image",
+    "\\src\\assets\\style",
+    "\\src\\components",
+    "\\src\\router"
+  ],
+  "SelectedNode": "\\src\\router\\index.ts",
+  "PreviewInSolutionExplorer": false
+}
