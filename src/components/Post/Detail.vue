@@ -8,7 +8,8 @@ import {
   getPostList, 
   deletePost, 
   getPostImageUrl,
-  getAvatarUrl 
+  getAvatarUrl, 
+  getPost
 } from '@/api/post'
 import type { CommunityPost } from '../../type'
 import Comments from './Comments.vue'
@@ -41,13 +42,11 @@ const fetchPostDetail = async () => {
   
   loading.value = true
   try {
-    // 由于API无单帖接口，先获取列表后筛选（生产环境建议后端添加单帖接口）
-    const res = await getPostList(1, 100)
+    const res = await getPost(postId.value)
     if (res.success && res.data) {
-      const target = res.data.data?.find(p => p.id === postId.value)
+      const target = res.data.data
       if (target) {
         post.value = target
-        // TODO: 根据user_id获取作者详细信息
       } else {
         message.error('帖子不存在')
         router.back()

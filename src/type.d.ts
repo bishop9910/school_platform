@@ -81,6 +81,14 @@ export interface GetPostsResponse {
   total: number;
 }
 
+export interface GetPostResponse {
+    success: boolean;
+  message: string;
+  data: CommunityPost;
+  page: number;
+  total: number;
+}
+
 export interface GetCommentsResponse {
   success: boolean;
   message: string;

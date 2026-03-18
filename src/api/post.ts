@@ -9,7 +9,8 @@ import type {
   DeletePostRequest,
   DeletePostResponse,
   PostComment,
-  GetPostsResponse
+  GetPostsResponse,
+  GetPostResponse
 } from "../type";
 
 /**
@@ -19,9 +20,17 @@ export function getPostList(page = 1, pageSize = 20): Promise<ApiResponse<GetPos
   return Request.request<GetPostsResponse>({
     url: '/post/list',
     method: 'get',
-    headers: { isToken: false, repeatSubmit: false },
+    headers: { isToken: true, repeatSubmit: false },
     params: { page, page_size: pageSize }
   });
+}
+
+export function getPost(post_id: number): Promise<ApiResponse<GetPostResponse>>{
+  return Request.request<GetPostResponse>({
+    url: `/post/${post_id}`,
+    method: 'get',
+    headers: { isToken: true, repeatSubmit: false}
+  })
 }
 
 /**
@@ -35,7 +44,7 @@ export function getComments(
   return Request.request<GetCommentsResponse>({
     url: '/post/comment',
     method: 'get',
-    headers: { isToken: false, repeatSubmit: false },
+    headers: { isToken: true, repeatSubmit: false },
     params: { post_id: postId, page, page_size: pageSize }
   });
 }

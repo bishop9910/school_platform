@@ -10,7 +10,7 @@ import {
   getAvatarUrl 
 } from '@/api/post'
 import type { PostComment } from '../../type'
-import { UserOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LikeOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps<{
   postId: number
@@ -169,8 +169,7 @@ onMounted(() => {
             <p class="comment-text">{{ item.content }}</p>
             <div class="comment-meta">
               <span class="comment-time">{{ formatTime(item.create_time) }}</span>
-              <span class="comment-like">👍 {{ item.like }}</span>
-              <!-- 仅作者或管理员可删除 -->
+              <span class="comment-like"><LikeOutlined /> {{ item.like }}</span>
               <a 
                 v-if="item.user_id === currentUserId" 
                 class="comment-delete"
