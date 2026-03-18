@@ -73,7 +73,8 @@ class Request {
       },
     (error: any) => {
       const originalRequest = error.config;
-      if (error.response?.status === 401) {
+      if (error.response?.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
         const refreshToken = getToken(REFRESH_TOKEN_KEY);
         if (refreshToken) {
           return axios.create({ baseURL: getApiConfig().baseURL })
