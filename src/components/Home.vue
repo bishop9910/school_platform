@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useThemeStore } from '@/stores/theme'
+import { getPostList } from '@/api/post' 
 
 const ThemeStore = useThemeStore()
 
@@ -13,11 +14,12 @@ const finished = ref(false)
 
 // --- 加载数据 ---
 const loadPosts = async () => {
+  // console.log('加载更多')
   if (loading.value || finished.value) return
   loading.value = true
   
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    const res = await getPostList(page.value, pageSize)
     
     const newPosts = Array.from({ length: pageSize }).map((_, index) => ({
       id: (page.value - 1) * pageSize + index,
@@ -58,10 +60,10 @@ const handleShare = (post: any) => {
 const handleScroll = () => {
   if (loading.value || finished.value) return
 
-  const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
-  const clientHeight = window.innerHeight || document.documentElement.clientHeight
-  const scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
-
+  // 计算滚动位置
+  let scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+  let clientHeight = window.innerHeight || document.documentElement.clientHeight
+  let scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
   if (scrollTop + clientHeight >= scrollHeight - 100) {
     loadPosts()
   }
@@ -69,11 +71,11 @@ const handleScroll = () => {
 
 onMounted(() => {
   loadPosts()
-  window.addEventListener('scroll', handleScroll)
+  document.body.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  document.body.removeEventListener('scroll', handleScroll)
 })
 </script>
 
