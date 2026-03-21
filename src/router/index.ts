@@ -19,20 +19,25 @@ const router = createRouter({
       component: () => import('@/components/Login.vue')
     },
     {
-    path: '/register',
-    name: '注册',
-    component: () => import('@/components/Register.vue')
-  },
-  {
-    path: '/profile',
-    name: '个人中心',
-    component: () => import('@/components/Profile.vue')
-  },
+      path: '/register',
+      name: '注册',
+      component: () => import('@/components/Register.vue')
+    },
+    {
+      path: '/profile',
+      name: '个人中心',
+      component: () => import('@/components/Profile.vue')
+    },
     {
       path: '/post/:id',
       name: '帖子',
       component: () => import('@/components/Post/Detail.vue')
-    }
+    },
+    {
+      path: '/post/create',
+      name: '创建帖子',
+      component: () => import('@/components/Post/Create.vue')
+    },
   ]
 })
 

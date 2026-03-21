@@ -1,8 +1,29 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useThemeStore } from '@/stores/theme'
+import { getAvatarUrl, getPostImageUrl, getPostList } from '@/api/post'
+import { EditOutlined, PictureOutlined, VideoCameraOutlined } from '@ant-design/icons-vue'
+import { useRouter } from 'vue-router'
 
 const ThemeStore = useThemeStore()
+const router = useRouter()
+
+// --- 侧边栏数据 ---
+const userLevel = ref(1)
+const tools = ref([
+  { name: '工具合集', icon: '📦', path: '/tools' },
+  { name: '签到福利', icon: '🎁', path: '/checkin' },
+  { name: '观测枢', icon: '🔍', path: '/observatory' },
+  { name: '大地图', icon: '🗺️', path: '/map' },
+  { name: '养成计算器', icon: '🧮', path: '/calculator' },
+  { name: '阵容广场', icon: '👥', path: '/teams' },
+])
+
+// --- 侧边栏方法 ---
+const goToPublish = () => router.push('/publish')
+const goToPublishImage = () => router.push('/publish?type=image')
+const goToPublishVideo = () => router.push('/publish?type=video')
+const goToTool = (path: string) => router.push(path)
 
 // --- 分页与数据状态 ---
 const page = ref(1)
@@ -17,15 +38,11 @@ const loadPosts = async () => {
   loading.value = true
   
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    const newPosts = Array.from({ length: pageSize }).map((_, index) => ({
-      id: (page.value - 1) * pageSize + index,
-      title: `帖子标题 - 第 ${page.value} 页 - ${index + 1}`,
-      content: '这是帖子的摘要内容，显示一部分文字...',
-      likes: Math.floor(Math.random() * 1000),
-      comments: Math.floor(Math.random() * 500)
-    }))
+    const res = await getPostList(page.value)
+    const newPosts = res.data
+    const firstPost:any = newPosts[0]
+    const firstPostImage:any = firstPost.images[0].image_url
+    console.log(firstPostImage)
 
     if (newPosts.length < pageSize) {
       finished.value = true
@@ -53,27 +70,31 @@ const handleComment = (post: any) => {
 const handleShare = (post: any) => {
   console.log('分享', post.id)
 }
-
+const isHome = true;
+let timeId: any = null
 // --- 滚动监听 ---
 const handleScroll = () => {
-  if (loading.value || finished.value) return
-
-  const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
-  const clientHeight = window.innerHeight || document.documentElement.clientHeight
-  const scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
-
-  if (scrollTop + clientHeight >= scrollHeight - 100) {
-    loadPosts()
+  if (timeId) {
+    clearTimeout(timeId)
   }
+  timeId = setTimeout(() => {
+    if (!isHome) return
+    if (loading.value || finished.value) return
+    const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+    const clientHeight = window.innerHeight || document.documentElement.clientHeight
+    const scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
+      loadPosts()
+    }}, 500)
 }
 
 onMounted(() => {
   loadPosts()
-  window.addEventListener('scroll', handleScroll)
+  document.body.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  document.body.removeEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -85,43 +106,75 @@ onUnmounted(() => {
     <div class="bg-circle circle-3"></div>
   </div>
   <div class="main-content">
-    <!-- 顶部轮播图 -->
-    <a-carousel autoplay class="top-carousel">
-      <div>
-        <div class="carousel-item">
-          <h3>轮播图 1</h3>
+    <!-- 左侧内容区 -->
+    <div class="content-left">
+      <!-- 顶部轮播图 -->
+      <a-carousel autoplay class="top-carousel">
+        <div>
+          <div class="carousel-item">
+            <h3>轮播图 1</h3>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="carousel-item">
-          <h3>轮播图 2</h3>
+        <div>
+          <div class="carousel-item">
+            <h3>轮播图 2</h3>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="carousel-item">
-          <h3>轮播图 3</h3>
+        <div>
+          <div class="carousel-item">
+            <h3>轮播图 3</h3>
+          </div>
         </div>
-      </div>
-    </a-carousel>
+      </a-carousel>
 
-    <!-- 帖子列表 -->
-    <div class="posts-container">
-      <a-card 
+      <!-- 帖子列表 -->
+      <div class="posts-container">
+      <router-link 
         v-for="post in posts" 
         :key="post.id" 
-        class="post-card"
-        :bordered="true"
-        :bodyStyle="{ padding: '0px 16px 0px 16px' }"
-      >
+        :to="`/post/${post.id}`" 
+        style="text-decoration: none; color: inherit;" 
+      > 
+        <a-card 
+          class="post-card"
+          :bordered="true"
+          :bodyStyle="{ padding: '0px 16px 0px 16px' }"
+        >
         <template #title>
           <div class="card-header">
+            <div class="user-info">
+              <div class="user-avatar">
+                <!-- 头像 -->
+                <img 
+                  :src="post.author?.avatar ? getAvatarUrl(post.author.avatar) : undefined"
+                  alt="用户头像" 
+                  class="avatar-img"
+                >
+              </div>
+              <div class="user-details">
+                <h5 class="user-name">{{ post.author?.nickname || post.author?.username || `用户${post.user_id}` || '用户' }}</h5>
+                <p class="post-time">{{ new Date(post.create_time).toLocaleString('zh-CN') || '刚刚' }}</p>
+              </div>
+            </div>
             <h4 class="real-title">{{ post.title }}</h4>
           </div>
         </template>
+        <div v-if="post.images?.length" class="image-content">
+            <a-image 
+              v-for="(img, idx) in post.images" 
+              :key="idx"
+              :src="getPostImageUrl(img.image_url)"
+              :preview="{
+                visible: false,
+                onVisibleChange: (visible: boolean) => { /* 自定义预览逻辑 */ }
+              }"
+              class="post-image"
+            />
+          </div>
         <div class="card-content">
-          <p class="real-content">{{ post.content }}</p>
+          <p class="real-content">{{ post.content.slice(0, 100) }}</p>
         </div>
-        
+      
         <!-- ✨ 美化后的操作区 -->
         <div class="card-footer-actions">
           <button class="action-btn like-btn" @click="handleLike(post)">
@@ -141,7 +194,7 @@ onUnmounted(() => {
               </svg>
             </span>
             <span class="action-text">评论</span>
-            <span class="action-count">{{ post.comments }}</span>
+            <span class="action-count">1111</span>
           </button>
           
           <button class="action-btn share-btn" @click="handleShare(post)">
@@ -153,8 +206,8 @@ onUnmounted(() => {
             <span class="action-text">分享</span>
           </button>
         </div>
-      </a-card>
-
+        </a-card>
+      </router-link>
       <div v-if="loading" class="loading-status">
         <span class="loading-spinner"></span> 加载中...
       </div>
@@ -163,11 +216,47 @@ onUnmounted(() => {
         没有更多数据了
       </div>
     </div>
+    </div>
+    
+    <!-- 右侧边栏 -->
+    <div class="sidebar-right">
+      <!-- 发布按钮 -->
+      <div class="publish-section">
+        <router-link to="/post/create" class="publish-btn-link">
+          <a-button class="publish-btn">
+            <template #icon><EditOutlined /></template>
+            发布长文
+          </a-button>
+        </router-link>
+        <a-button class="publish-btn" @click="goToPublishImage">
+          <template #icon><PictureOutlined /></template>
+          发布图文
+        </a-button>
+      </div>
+      
+      <!-- 创作等级 -->
+      <div class="creator-level">
+        <div class="level-header">
+          <span>创作等级 LV.{{ userLevel }}</span>
+          <a href="#" class="level-link">进入创作中心 ></a>
+        </div>
+      </div>
+      
+      <!-- 工具入口 -->
+      <div class="tools-section">
+        <div class="tools-grid">
+          <div class="tool-item" v-for="tool in tools" :key="tool.name" @click="goToTool(tool.path)">
+            <div class="tool-icon">{{ tool.icon }}</div>
+            <div class="tool-name">{{ tool.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </template>
 
-<style>
+<style scoped>
 /* 保持原有变量定义 */
 .home-container[data-theme="dark"] {
   --bg-1 :#1a1a2e;
@@ -245,9 +334,167 @@ onUnmounted(() => {
 .main-content {
   position: relative;
   z-index: 10;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* 左侧内容区 */
+.content-left {
+  flex: 0 0 700px;
+  min-width: 0;
+}
+
+/* 右侧边栏 */
+.sidebar-right {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 发布按钮区 */
+.publish-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.publish-btn {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.publish-btn:first-child {
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  color: #333;
+}
+
+.publish-btn:first-child:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+/* 创作等级 */
+.creator-level {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.level-link {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* 工具入口 */
+.tools-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.tool-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.tool-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.tool-icon {
+  font-size: 24px;
+}
+
+.tool-name {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 深色模式适配 */
+.home-container[data-theme="dark"] .publish-section,
+.home-container[data-theme="dark"] .creator-level,
+.home-container[data-theme="dark"] .tools-section {
+  background: rgba(30, 30, 50, 0.95);
+}
+
+.home-container[data-theme="dark"] .publish-btn {
+  background: rgba(50, 50, 70, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e6e6e6;
+}
+
+.home-container[data-theme="dark"] .publish-btn:hover {
+  border-color: #818cf8;
+  color: #818cf8;
+  background: rgba(60, 60, 80, 0.9);
+}
+
+.home-container[data-theme="dark"] .publish-btn:first-child {
+  background: rgba(50, 50, 70, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e6e6e6;
+}
+
+.home-container[data-theme="dark"] .publish-btn:first-child:hover {
+  border-color: #818cf8;
+  color: #818cf8;
+  background: rgba(60, 60, 80, 0.9);
+}
+
+.home-container[data-theme="dark"] .level-header {
+  color: #e6e6e6;
+}
+
+.home-container[data-theme="dark"] .level-link {
+  color: #818cf8;
+}
+
+.home-container[data-theme="dark"] .tool-name {
+  color: #aaa;
+}
+
+/* 响应式 */
+@media (max-width: 992px) {
+  .sidebar-right {
+    display: none;
+  }
+  
+  .content-left {
+    max-width: 100%;
+  }
 }
 
 /* 顶部轮播图 */
@@ -303,6 +550,7 @@ onUnmounted(() => {
   margin: 0;
   color: #666;
   line-height: 1.6;
+  font-size: 2vh;
 }
 
 /* 加载状态样式 */
@@ -544,5 +792,73 @@ onUnmounted(() => {
 .home-container[data-theme="dark"] .action-btn.liked .icon-heart {
   color: #f87171;
 }
+
+/* 用户信息样式 */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.post-time {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 深色模式适配 */
+.home-container[data-theme="dark"] .user-name {
+  color: #eee;
+}
+
+.home-container[data-theme="dark"] .post-time {
+  color: #666;
+}
+
+.image-content {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    
+    .post-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
 
 </style>
