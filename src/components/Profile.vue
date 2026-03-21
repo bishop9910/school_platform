@@ -55,8 +55,9 @@
 
       <!-- 操作按钮 -->
       <div class="profile-actions">
-        <a-button type="primary" class="action-btn">编辑资料</a-button>
-        <a-button class="action-btn">我的帖子</a-button>
+        <a-button type="primary" class="action-btn" @click="goToEditProfile">编辑资料</a-button>
+        <a-button class="action-btn" @click="goToMyPosts">我的帖子</a-button>
+        <a-button danger class="action-btn" @click="handleLogout">退出登录</a-button>
       </div>
     </div>
   </div>
@@ -64,19 +65,20 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useLogin } from '@/stores/user';
 import { useThemeStore } from '@/stores/theme';
 import defAvatar from '@/assets/image/default_avatar.avif';
-import { message } from 'ant-design-vue';
+import { message, Modal } from 'ant-design-vue';
 
-const { userInfo, GetInfo } = useLogin();
+const router = useRouter();
+const { userInfo, GetInfo, Logout } = useLogin();
 const themeStore = useThemeStore();
 const isDark = computed(() => themeStore.isDark);
 
 onMounted(() => {
-  // 加载用户信息
   GetInfo().catch(error => {
-    message.error('获取用户信息失败:', error);
+    message.error('获取用户信息失败:' + error);
   });
 });
 
@@ -100,9 +102,7 @@ const showUserCreditScore = computed(()=>{
   }
 })
 
-// 转换性别显示文本
 const getGenderText = (gender: string | number): string => {
-  // 处理数据库中的性别值：0-未知，1-男，2-女
   if (typeof gender === 'number') {
     switch (gender) {
       case 0:
@@ -115,7 +115,6 @@ const getGenderText = (gender: string | number): string => {
         return '未知';
     }
   }
-  // 处理字符串类型的性别值
   switch (gender) {
     case 'male':
       return '男';
@@ -126,6 +125,32 @@ const getGenderText = (gender: string | number): string => {
     default:
       return '未知';
   }
+};
+
+const goToEditProfile = () => {
+  router.push('/profile/edit');
+};
+
+const goToMyPosts = () => {
+  router.push('/profile/posts');
+};
+
+const handleLogout = () => {
+  Modal.confirm({
+    title: '确认退出',
+    content: '确定要退出登录吗？',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: async () => {
+      try {
+        await Logout();
+        message.success('退出登录成功');
+        router.push('/login');
+      } catch (error) {
+        message.error('退出登录失败');
+      }
+    }
+  });
 };
 </script>
 

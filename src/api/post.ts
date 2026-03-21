@@ -34,6 +34,18 @@ export function getPost(post_id: number): Promise<ApiResponse<GetPostResponse>>{
 }
 
 /**
+ * 获取当前用户的帖子列表
+ */
+export function getMyPosts(page = 1, pageSize = 20): Promise<ApiResponse<GetPostsResponse>> {
+  return Request.request<GetPostsResponse>({
+    url: '/post/my-posts',
+    method: 'get',
+    headers: { isToken: true, repeatSubmit: false },
+    params: { page, page_size: pageSize }
+  });
+}
+
+/**
  * 获取指定帖子的评论列表
  */
 export function getComments(

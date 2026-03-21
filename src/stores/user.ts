@@ -1,6 +1,6 @@
-import { getInfo, login } from "@/api/login";
+import { getInfo, login, logout } from "@/api/login";
 import type { UserInfo, UserLoginInput } from "@/type";
-import { getToken, setToken, AUTH_TOKEN_KEY } from "@/utils/auth";
+import { getToken, setToken, removeToken, AUTH_TOKEN_KEY } from "@/utils/auth";
 import { isEmpty, isHttp } from "@/utils/validate";
 import { defineStore } from "pinia";
 import { reactive } from "vue";
@@ -38,6 +38,40 @@ export const useLogin = defineStore('login', () => {
     })
   }
 
+  function Logout(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      logout().then(() => {
+        removeToken(AUTH_TOKEN_KEY)
+        userInfo.token = ''
+        userInfo.id = ''
+        userInfo.username = ''
+        userInfo.nickName = ''
+        userInfo.avatar = ''
+        userInfo.gender = 'unknown'
+        userInfo.credit_coin = 0
+        userInfo.credit_score = 100
+        userInfo.signature = ''
+        userInfo.email = ''
+        userInfo.role = 0
+        resolve()
+      }).catch(() => {
+        removeToken(AUTH_TOKEN_KEY)
+        userInfo.token = ''
+        userInfo.id = ''
+        userInfo.username = ''
+        userInfo.nickName = ''
+        userInfo.avatar = ''
+        userInfo.gender = 'unknown'
+        userInfo.credit_coin = 0
+        userInfo.credit_score = 100
+        userInfo.signature = ''
+        userInfo.email = ''
+        userInfo.role = 0
+        resolve()
+      })
+    })
+  }
+
   function GetInfo(): Promise<void> {
     return new Promise((resolve, reject) => {
       getInfo().then(res => {
@@ -65,5 +99,5 @@ export const useLogin = defineStore('login', () => {
     })
   }
 
-  return { userInfo, Login, GetInfo }
+  return { userInfo, Login, Logout, GetInfo }
 })

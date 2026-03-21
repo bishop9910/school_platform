@@ -29,6 +29,16 @@ const router = createRouter({
       component: () => import('@/components/Profile.vue')
     },
     {
+      path: '/profile/edit',
+      name: '编辑资料',
+      component: () => import('@/components/ProfileEdit.vue')
+    },
+    {
+      path: '/profile/posts',
+      name: '我的帖子',
+      component: () => import('@/components/MyPosts.vue')
+    },
+    {
       path: '/post/:id',
       name: '帖子',
       component: () => import('@/components/Post/Detail.vue')
