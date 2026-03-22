@@ -10,14 +10,6 @@ export function login(username: string, password: string): Promise<ApiResponse<L
   });
 }
 
-export function logout(): Promise<ApiResponse<null>> {
-  return Request.request<null>({
-    url: '/auth/logout',
-    method: 'post',
-    headers: { isToken: true, repeatSubmit: false }
-  });
-}
-
 export function getInfo(): Promise<ApiResponse<UserResInfo>> {
   return Request.request<UserResInfo>({
     url: '/user/get-info',
@@ -36,7 +28,7 @@ export interface UpdateUserInfoInput {
 
 export function updateUserInfo(userData: UpdateUserInfoInput): Promise<ApiResponse<null>> {
   return Request.request<null>({
-    url: '/user/update',
+    url: '/user/edit',
     method: 'post',
     headers: { isToken: true, repeatSubmit: false },
     data: userData
