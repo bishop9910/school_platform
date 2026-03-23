@@ -1,11 +1,11 @@
 import Request, { type ApiResponse } from "@/utils/request";
 import type {
   CommunityPost,
-  GetCommentsResponse,
-  CreateCommentRequest,
-  CreateCommentResponse,
-  DeleteCommentRequest,
-  DeleteCommentResponse,
+  GetPostCommentsResponse,
+  CreatePostCommentRequest,
+  CreatePostCommentResponse,
+  DeletePostCommentRequest,
+  DeletePostCommentResponse,
   DeletePostRequest,
   DeletePostResponse,
   PostComment,
@@ -52,8 +52,8 @@ export function getComments(
   postId: number,
   page = 1,
   pageSize = 20
-): Promise<ApiResponse<GetCommentsResponse>> {
-  return Request.request<GetCommentsResponse>({
+): Promise<ApiResponse<GetPostCommentsResponse>> {
+  return Request.request<GetPostCommentsResponse>({
     url: '/post/comment',
     method: 'get',
     headers: { isToken: true, repeatSubmit: false },
@@ -65,9 +65,9 @@ export function getComments(
  * 创建评论
  */
 export function createComment(
-  data: CreateCommentRequest
-): Promise<ApiResponse<CreateCommentResponse>> {
-  return Request.request<CreateCommentResponse>({
+  data: CreatePostCommentRequest
+): Promise<ApiResponse<CreatePostCommentResponse>> {
+  return Request.request<CreatePostCommentResponse>({
     url: '/post/comment',
     method: 'post',
     headers: { isToken: true, repeatSubmit: false },
@@ -80,12 +80,12 @@ export function createComment(
  */
 export function deleteComment(
   commentId: number
-): Promise<ApiResponse<DeleteCommentResponse>> {
-  return Request.request<DeleteCommentResponse>({
+): Promise<ApiResponse<DeletePostCommentResponse>> {
+  return Request.request<DeletePostCommentResponse>({
     url: '/post/comment/delete',
     method: 'post',
     headers: { isToken: true, repeatSubmit: false },
-    data: { comment_id: commentId } as DeleteCommentRequest
+    data: { comment_id: commentId } as DeletePostCommentRequest
   });
 }
 

@@ -83,7 +83,7 @@ export interface PostWithAuthor {
 export interface GetPostsResponse {
   success: boolean;
   message: string;
-  data: CommunityPost[];
+  data: PostWithAuthor[];
   page: number;
   total: number;
 }
@@ -91,7 +91,7 @@ export interface GetPostsResponse {
 export interface GetPostResponse {
     success: boolean;
   message: string;
-  data: CommunityPost;
+  data: PostWithAuthor;
   page: number;
   total: number;
 }
@@ -99,7 +99,7 @@ export interface GetPostResponse {
 export interface GetPostCommentsResponse {
   success: boolean;
   message: string;
-  data: PostComment[];
+  data: PostCommentWithAuthor[];
   page: number;
   total: number;
 }
