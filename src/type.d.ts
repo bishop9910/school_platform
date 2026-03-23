@@ -141,6 +141,7 @@ export interface DeletePostResponse {
 
 export interface CommunityEntrust {
   id: number;
+  user_id: number;
   allowed_credit_score_level: credit_level;
   acceptor_id: number;
   credit_coin: number;
@@ -158,4 +159,127 @@ export interface CommunityEntrustImage {
   id: number;
   image_url: string;
   entrust_id: number;
+}
+
+export interface EntrustComment {
+  content: string
+  entrust_id: number
+  id: number
+  like_count: number
+  user_id: number
+}
+
+export interface EntrustWithAuthor {
+  author: AuthorBase;
+  entrust: CommunityEntrust;
+}
+
+export interface EntrustCommentWithAuthor {
+  author: AuthorBase;
+  comment: EntrustComment;
+}
+
+//api 响应
+export interface GetEntrustsResponse {
+  success: boolean;
+  message: string;
+  data: EntrustWithAuthor[];
+  page: number;
+  total: number;
+}
+
+export interface NewEntrustRequest {
+  allowed_credit_score_level: credit_level;
+  coin: number
+  content: string
+  title: string
+}
+
+export interface NewEntrustResponse {
+  success: boolean;
+  message: string;
+  data: {
+    entrust_id: number;
+  }
+}
+
+export interface UploadEntrustImageRequest {
+  entrust_id: number;
+  image: File | Blob;
+}
+
+export interface UploadEntrustImageResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface GetUserEntrustsRequest {
+  user_id: number;
+  page: number;
+  page_size: number;
+}
+
+export interface GetUserEntrustsResponse {
+  success: boolean;
+  message: string;
+  data: EntrustWithAuthor[];
+  page: number;
+  total: number;
+}
+
+export interface GetUserAcceptedEntrustsRequest {
+  user_id: number;
+  page: number;
+  page_size: number;
+}
+
+export interface GetUserAcceptedEntrustsResponse {
+  success: boolean;
+  message: string;
+  data: EntrustWithAuthor[];
+  page: number;
+  total: number;
+}
+
+export interface GetEntrustByIdRequest {
+  entrust_id: number;
+}
+
+export interface GetEntrustByIdResponse {
+  success: boolean;
+  message: string;
+  data: EntrustWithAuthor[];
+}
+
+export interface GetEntrustCommentsRequest {
+  entrust_id: number;
+  page: number;
+  page_size: number;
+}
+
+export interface GetEntrustCommentsResponse {
+  success: boolean;
+  message: string;
+  data: EntrustCommentWithAuthor[];
+  page: number;
+  total: number;
+}
+
+export interface NewEntrustCommentRequest {
+  content: string;
+  entrust_id: number;
+}
+
+export interface NewEntrustCommentResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface DeleteEntrustCommentRequest {
+  comment_id: number;
+}
+
+export interface DeleteEntrustCommentResponse {
+  success: boolean;
+  message: string;
 }
