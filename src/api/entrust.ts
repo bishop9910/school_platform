@@ -1,6 +1,6 @@
 import Request, { type ApiResponse } from "@/utils/request";
 import type {
-  CommunityPost,
+  ,
   GetCommentsResponse,
   CreateCommentRequest,
   CreateCommentResponse,

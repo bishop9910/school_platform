@@ -143,5 +143,19 @@ export interface CommunityEntrust {
   id: number;
   allowed_credit_score_level: credit_level;
   acceptor_id: number;
+  credit_coin: number;
+  title: string;
+  content: string;
+  is_over: boolean;
+  is_progressing: boolean;
+  like_count: number;
+  images: CommunityEntrustImage[]
 
+  create_time?: string;
+}
+
+export interface CommunityEntrustImage {
+  id: number;
+  image_url: string;
+  entrust_id: number;
 }

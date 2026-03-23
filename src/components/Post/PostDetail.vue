@@ -12,7 +12,7 @@ import {
   getPost
 } from '@/api/post'
 import type { CommunityPost } from '../../type'
-import Comments from './Comments.vue'
+import Comments from './PostComments.vue'
 import { 
   ShareAltOutlined, 
   LikeOutlined, 
