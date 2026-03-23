@@ -52,9 +52,11 @@ export interface PostComment {
   post_id: number;
   like: number;
   create_time?: string;
-  // 扩展字段（前端组合用）
-  username?: string;
-  avatar?: string;
+}
+
+export interface PostCommentWithAuthor {
+  Post: PostComment;
+  Author: AuthorBase;
 }
 
 export interface CommunityPost {
@@ -65,12 +67,16 @@ export interface CommunityPost {
   create_time: string;
   like: number;
   images?: CommunityPostImage[];
-  // 作者信息（前端组合）
-  author?: {
-    username: string;
-    avatar?: string;
-    nickname?: string;
-  };
+}
+
+type AuthorBase = {
+  NickName: string
+  Avatar: string
+}
+
+export interface PostWithAuthor {
+  Post: CommunityPost;
+  Author: AuthorBase;
 }
 
 // API响应类型
@@ -90,7 +96,7 @@ export interface GetPostResponse {
   total: number;
 }
 
-export interface GetCommentsResponse {
+export interface GetPostCommentsResponse {
   success: boolean;
   message: string;
   data: PostComment[];
@@ -98,21 +104,21 @@ export interface GetCommentsResponse {
   total: number;
 }
 
-export interface CreateCommentRequest {
+export interface CreatePostCommentRequest {
   post_id: number;
   content: string;
 }
 
-export interface CreateCommentResponse {
+export interface CreatePostCommentResponse {
   success: boolean;
   message: string;
 }
 
-export interface DeleteCommentRequest {
+export interface DeletePostCommentRequest {
   comment_id: number;
 }
 
-export interface DeleteCommentResponse {
+export interface DeletePostCommentResponse {
   success: boolean;
   message: string;
 }
