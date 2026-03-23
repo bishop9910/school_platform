@@ -90,6 +90,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useThemeStore } from '@/stores/theme';
+import { useLogin } from '@/stores/user';
 import { getMyPosts, deletePost, getPostImageUrl } from '@/api/post';
 import { message } from 'ant-design-vue';
 import {
@@ -104,6 +105,7 @@ import {
 
 const router = useRouter();
 const themeStore = useThemeStore();
+const loginStore = useLogin();
 const isDark = computed(() => themeStore.isDark);
 
 const posts = ref<any[]>([]);
@@ -142,7 +144,13 @@ const loadPosts = async () => {
   loading.value = true;
 
   try {
-    const res = await getMyPosts(page.value, pageSize);
+    // 后端接口需要 user_id，从 store 获取当前用户ID
+    const userId = loginStore.userInfo.id;
+    if (!userId) {
+      message.error('请先登录');
+      return;
+    }
+    const res = await getMyPosts(userId, page.value, pageSize);
     const newPosts = res.data || [];
 
     if (newPosts.length < pageSize) {

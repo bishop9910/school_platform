@@ -1,6 +1,10 @@
 import type { LoginResult, UserResInfo, UserRegisterInput, RegisterResult } from "@/type";
 import Request, { type ApiResponse } from "@/utils/request";
 
+/**
+ * 登录接口
+ * @后端已实现: POST /auth/login
+ */
 export function login(username: string, password: string): Promise<ApiResponse<LoginResult>> {
   return Request.request<LoginResult>({
     url: '/auth/login',
@@ -10,6 +14,22 @@ export function login(username: string, password: string): Promise<ApiResponse<L
   });
 }
 
+/**
+ * 退出登录接口
+ * @后端已实现: POST /auth/logout
+ */
+export function logout(): Promise<ApiResponse<null>> {
+  return Request.request<null>({
+    url: '/auth/logout',
+    method: 'post',
+    headers: { isToken: true, repeatSubmit: false }
+  });
+}
+
+/**
+ * 获取用户信息接口
+ * @后端已实现: GET /user/get-info
+ */
 export function getInfo(): Promise<ApiResponse<UserResInfo>> {
   return Request.request<UserResInfo>({
     url: '/user/get-info',

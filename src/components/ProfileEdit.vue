@@ -88,6 +88,7 @@ import { useRouter } from 'vue-router';
 import { useLogin } from '@/stores/user';
 import { useThemeStore } from '@/stores/theme';
 import { updateUserInfo } from '@/api/login';
+import { uploadAvatar } from '@/api/upload';
 import defAvatar from '@/assets/image/default_avatar.avif';
 import { message } from 'ant-design-vue';
 import { LeftOutlined, UploadOutlined, UserOutlined } from '@ant-design/icons-vue';
@@ -130,18 +131,33 @@ onMounted(async () => {
   }
 });
 
-const handleAvatarChange = (file: File) => {
+const handleAvatarChange = async (file: File) => {
   const isImage = file.type.startsWith('image/');
   if (!isImage) {
     message.error('请上传图片文件');
     return false;
   }
+  
+  // 先显示本地预览
   const reader = new FileReader();
   reader.onload = (e) => {
     previewAvatar.value = e.target?.result as string;
-    formState.avatar = e.target?.result as string;
   };
   reader.readAsDataURL(file);
+  
+  // 上传到后端
+  try {
+    const res = await uploadAvatar(file);
+    if (res.success && res.data) {
+      // 上传成功，保存后端返回的文件路径
+      formState.avatar = res.data.url;
+      message.success('头像上传成功');
+    }
+  } catch (error) {
+    message.error('头像上传失败');
+    previewAvatar.value = '';
+  }
+  
   return false;
 };
 
