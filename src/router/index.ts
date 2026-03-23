@@ -41,12 +41,12 @@ const router = createRouter({
     {
       path: '/post/:id',
       name: '帖子',
-      component: () => import('@/components/Post/Detail.vue')
+      component: () => import('@/components/Post/PostDetail.vue')
     },
     {
       path: '/post/create',
       name: '创建帖子',
-      component: () => import('@/components/Post/Create.vue')
+      component: () => import('@/components/Post/PostCreate.vue')
     },
   ]
 })
