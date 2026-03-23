@@ -55,8 +55,8 @@ export interface PostComment {
 }
 
 export interface PostCommentWithAuthor {
-  Post: PostComment;
-  Author: AuthorBase;
+  post: PostComment;
+  author: AuthorBase;
 }
 
 export interface CommunityPost {
@@ -70,13 +70,14 @@ export interface CommunityPost {
 }
 
 type AuthorBase = {
-  NickName: string
-  Avatar: string
+  id: number
+  nickName: string
+  avatar: string
 }
 
 export interface PostWithAuthor {
-  Post: CommunityPost;
-  Author: AuthorBase;
+  post: CommunityPost;
+  author: AuthorBase;
 }
 
 // API响应类型
@@ -89,7 +90,7 @@ export interface GetPostsResponse {
 }
 
 export interface GetPostResponse {
-    success: boolean;
+  success: boolean;
   message: string;
   data: PostWithAuthor;
   page: number;
@@ -127,7 +128,20 @@ export interface DeletePostRequest {
   post_id: number;
 }
 
+enum credit_level {
+  Danger,
+  Normal,
+  Good,
+}
+
 export interface DeletePostResponse {
   success: boolean;
   message: string;
+}
+
+export interface CommunityEntrust {
+  id: number;
+  allowed_credit_score_level: credit_level;
+  acceptor_id: number;
+
 }

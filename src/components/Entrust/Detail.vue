@@ -11,7 +11,7 @@ import {
   getAvatarUrl, 
   getPost
 } from '@/api/post'
-import type { CommunityPost } from '../../type'
+import type { CommunityEntrust } from '../../type'
 import Comments from './Comments.vue'
 import { 
   ShareAltOutlined, 
@@ -26,7 +26,7 @@ const router = useRouter()
 const themeStore = useThemeStore()
 
 const comments = ref<{ refresh: () => Promise<void> } | null>(null)
-const post = ref<CommunityPost | null>(null)
+const entrust = ref<CommunityEntrust | null>(null)
 const loading = ref(true)
 const currentUserId = ref<number | null>(null)
 
