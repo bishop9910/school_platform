@@ -20,6 +20,7 @@ import {
   DeleteOutlined,
   UserOutlined
 } from '@ant-design/icons-vue'
+import defaultAvatar from '@/assets/image/default_avatar.avif'
 
 const route = useRoute()
 const router = useRouter()
@@ -142,7 +143,7 @@ onMounted(() => {
           <h1 class="post-title">{{ post.title }}</h1>
           <div class="post-author">
             <a-avatar 
-              :src="post.author?.avatar ? getAvatarUrl(post.author.avatar) : undefined"
+              :src="post.author?.avatar ? getAvatarUrl(post.author.avatar) : defaultAvatar"
               class="author-avatar"
             >
             <template #icon>

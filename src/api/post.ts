@@ -25,11 +25,11 @@ export function getPostList(page = 1, pageSize = 20): Promise<ApiResponse<GetPos
   });
 }
 
-export function getPost(post_id: number): Promise<ApiResponse<GetPostResponse>>{
+export function getPost(post_id: number): Promise<ApiResponse<GetPostResponse>> {
   return Request.request<GetPostResponse>({
     url: `/post/${post_id}`,
     method: 'get',
-    headers: { isToken: true, repeatSubmit: false}
+    headers: { isToken: true, repeatSubmit: false }
   })
 }
 
@@ -49,8 +49,8 @@ export function getMyPosts(page = 1, pageSize = 20): Promise<ApiResponse<GetPost
  * 获取指定帖子的评论列表
  */
 export function getComments(
-  postId: number, 
-  page = 1, 
+  postId: number,
+  page = 1,
   pageSize = 20
 ): Promise<ApiResponse<GetCommentsResponse>> {
   return Request.request<GetCommentsResponse>({
@@ -86,6 +86,18 @@ export function deleteComment(
     method: 'post',
     headers: { isToken: true, repeatSubmit: false },
     data: { comment_id: commentId } as DeleteCommentRequest
+  });
+}
+
+/**
+ * 创建帖子
+ */
+export function createPost(data: { title: string; content: string }): Promise<ApiResponse<{ post_id: number }>> {
+  return Request.request<{ post_id: number }>({
+    url: '/post/new',
+    method: 'post',
+    headers: { isToken: true, repeatSubmit: false },
+    data
   });
 }
 

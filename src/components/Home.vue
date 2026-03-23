@@ -4,6 +4,7 @@ import { useThemeStore } from '@/stores/theme'
 import { getAvatarUrl, getPostImageUrl, getPostList } from '@/api/post'
 import { EditOutlined, PictureOutlined, VideoCameraOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
+import defaultAvatar from '@/assets/image/default_avatar.avif'
 
 const ThemeStore = useThemeStore()
 const router = useRouter()
@@ -20,9 +21,7 @@ const tools = ref([
 ])
 
 // --- 侧边栏方法 ---
-const goToPublish = () => router.push('/publish')
 const goToPublishImage = () => router.push('/publish?type=image')
-const goToPublishVideo = () => router.push('/publish?type=video')
 const goToTool = (path: string) => router.push(path)
 
 // --- 分页与数据状态 ---
@@ -41,9 +40,7 @@ const loadPosts = async () => {
   try {
     const res = await getPostList(page.value)
     const newPosts = res.data
-    const firstPost:any = newPosts[0]
-    const firstPostImage:any = firstPost.images[0].image_url
-    console.log(firstPostImage)
+    console.dir(newPosts)
 
     if (newPosts.length < pageSize) {
       finished.value = true
@@ -147,22 +144,22 @@ onUnmounted(() => {
               <div class="user-avatar">
                 <!-- 头像 -->
                 <img 
-                  :src="post.author?.avatar ? getAvatarUrl(post.author.avatar) : undefined"
+                  :src="post.author?.avatar ? getAvatarUrl(post.author.avatar) : defaultAvatar"
                   alt="用户头像" 
                   class="avatar-img"
                 >
               </div>
               <div class="user-details">
                 <h5 class="user-name">{{ post.author?.nickname || post.author?.username || `用户${post.user_id}` || '用户' }}</h5>
-                <p class="post-time">{{ new Date(post.create_time).toLocaleString('zh-CN') || '刚刚' }}</p>
+                <p class="post-time">{{ new Date(post.post.create_time).toLocaleString('zh-CN') || '刚刚' }}</p>
               </div>
             </div>
-            <h4 class="real-title">{{ post.title }}</h4>
+            <h4 class="real-title">{{ post.post.title }}</h4>
           </div>
         </template>
         <div v-if="post.images?.length" class="image-content">
             <a-image 
-              v-for="(img, idx) in post.images" 
+              v-for="(img, idx) in post.post.images" 
               :key="idx"
               :src="getPostImageUrl(img.image_url)"
               :preview="{
@@ -173,7 +170,7 @@ onUnmounted(() => {
             />
           </div>
         <div class="card-content">
-          <p class="real-content">{{ post.content.slice(0, 100) }}</p>
+          <p class="real-content">{{ post.post.content.slice(0, 100) }}</p>
         </div>
       
         <!-- ✨ 美化后的操作区 -->
@@ -185,7 +182,7 @@ onUnmounted(() => {
               </svg>
             </span>
             <span class="action-text">点赞</span>
-            <span class="action-count">{{ post.likes }}</span>
+            <span class="action-count">{{ post.post.like_count }}</span>
           </button>
           
           <button class="action-btn comment-btn" @click="handleComment(post)">
@@ -226,13 +223,15 @@ onUnmounted(() => {
         <router-link to="/post/create" class="publish-btn-link">
           <a-button class="publish-btn">
             <template #icon><EditOutlined /></template>
-            发布长文
+            发布帖子
           </a-button>
         </router-link>
-        <a-button class="publish-btn" @click="goToPublishImage">
-          <template #icon><PictureOutlined /></template>
-          发布图文
-        </a-button>
+    
+          <a-button class="publish-btn" @click="goToPublishImage">
+            <template #icon><PictureOutlined /></template>
+            发布委托
+          </a-button>
+
       </div>
       
       <!-- 创作等级 -->
